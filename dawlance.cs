@@ -70,7 +70,7 @@ namespace dawlance_test_automation
 
 
         //*******************************  HomePage Start
-        
+
         [TestMethod]
         public void HomePage_01_Search()
         {
@@ -184,7 +184,7 @@ namespace dawlance_test_automation
                     _wait2();
                 }
             }
-            string CATEGORIES =  Webdriver.FindElements(By.CssSelector("ul[class='yCmsContentSlot ul-clear category-list']"))[0].Text.Trim();
+            string CATEGORIES = Webdriver.FindElements(By.CssSelector("ul[class='yCmsContentSlot ul-clear category-list']"))[0].Text.Trim();
             if (CATEGORIES == "Air Conditioners\r\nWater Dispensers\r\nSmall Domestic Appliances\r\nCooking Appliances\r\nWashing Machines\r\nRefrigerators and freezers")
             {
                 element = Webdriver.FindElement(By.CssSelector("a[href='/authorized-services']"));
@@ -215,6 +215,574 @@ namespace dawlance_test_automation
             }
         }
 
+        [TestMethod]
+        public void HomePage_06_Products_01_Freezers()
+        {
+            _Start();
+            Webdriver.FindElement(By.CssSelector("button[aria-label='menu']")).Click();
+            Sleep();
+            Actions ac = new Actions(Webdriver);
+            element = Webdriver.FindElement(By.CssSelector("a[href='/refrigerators-and-freezers']"));
+            ac.MoveToElement(element).Perform();
+            int COUNT = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("li")).Count();
+            ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
+            ac.Reset();
+            List<string> _titles = new List<string>();
+            for (int i = 0; i < COUNT; i++)
+            {
+                string title = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("a"))[i].GetAttribute("title");
+                _titles.Add(title);
+                element = Webdriver.FindElement(By.CssSelector("a[title='" + _titles[i] + "']"));
+                ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
+                ac.Reset();
+            }
+            for (int j = COUNT; j > 0; j--)
+            {
+                string error = null;
+                string error_2 = null;
+                Webdriver.SwitchTo().Window(Webdriver.WindowHandles[j]);
+                error_2 = Webdriver.Title;
+                if (error_2 == "Server Error")
+                {
+                    Assert.Fail();
+                }
+                try
+                {
+                    error = Webdriver.FindElement(By.CssSelector("div[class='pnf-title']")).Text.Trim();
+                    if (error.Contains("404"))
+                    {
+                        Assert.Fail();
+                    }
+                }
+                catch (Exception)
+                {
+                    _wait2();
+                    Webdriver.Close();
+                }
+            }
+            Webdriver.Quit();
+        }
+
+
+        [TestMethod]
+        public void HomePage_06_Products_02_WashingMachines()
+        {
+            _Start();
+            Webdriver.FindElement(By.CssSelector("button[aria-label='menu']")).Click();
+            Sleep();
+            Actions ac = new Actions(Webdriver);
+            element = Webdriver.FindElement(By.CssSelector("a[href='/washing-machines']"));
+            ac.MoveToElement(element).Perform();
+            int COUNT = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("li")).Count();
+            ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
+            ac.Reset();
+            List<string> _titles = new List<string>();
+            for (int i = 0; i < COUNT; i++)
+            {
+                string title = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("a"))[i].GetAttribute("title");
+                _titles.Add(title);
+                element = Webdriver.FindElement(By.CssSelector("a[title='" + _titles[i] + "']"));
+                ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
+                ac.Reset();
+            }
+            for (int j = COUNT; j > 0; j--)
+            {
+                string error = null;
+                string error_2 = null;
+                Webdriver.SwitchTo().Window(Webdriver.WindowHandles[j]);
+                error_2 = Webdriver.Title;
+                if (error_2 == "Server Error")
+                {
+                    Assert.Fail();
+                }
+                try
+                {
+                    error = Webdriver.FindElement(By.CssSelector("div[class='pnf-title']")).Text.Trim();
+                    if (error.Contains("404"))
+                    {
+                        Assert.Fail();
+                    }
+                }
+                catch (Exception)
+                {
+                    _wait2();
+                    Webdriver.Close();
+                }
+            }
+            Webdriver.Quit();
+        }
+
+
+        [TestMethod]
+        public void HomePage_06_Products_03_Cooking()
+        {
+            _Start();
+            Webdriver.FindElement(By.CssSelector("button[aria-label='menu']")).Click();
+            Sleep();
+            Actions ac = new Actions(Webdriver);
+            element = Webdriver.FindElement(By.CssSelector("a[href='/cooking-appliances']"));
+            ac.MoveToElement(element).Perform();
+            int COUNT = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("li")).Count();
+            ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
+            ac.Reset();
+            List<string> _titles = new List<string>();
+            for (int i = 0; i < COUNT; i++)
+            {
+                string title = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("a"))[i].GetAttribute("title");
+                _titles.Add(title);
+                element = Webdriver.FindElement(By.CssSelector("a[title='" + _titles[i] + "']"));
+                ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
+                ac.Reset();
+            }
+            for (int j = COUNT; j > 0; j--)
+            {
+                string error = null;
+                string error_2 = null;
+                Webdriver.SwitchTo().Window(Webdriver.WindowHandles[j]);
+                error_2 = Webdriver.Title;
+                if (error_2 == "Server Error")
+                {
+                    Assert.Fail();
+                }
+                try
+                {
+                    error = Webdriver.FindElement(By.CssSelector("div[class='pnf-title']")).Text.Trim();
+                    if (error.Contains("404"))
+                    {
+                        Assert.Fail();
+                    }
+                }
+                catch (Exception)
+                {
+                    _wait2();
+                    Webdriver.Close();
+                }
+            }
+            Webdriver.Quit();
+        }
+
+
+        [TestMethod]
+        public void HomePage_06_Products_04_Dishwashers()
+        {
+            _Start();
+            Webdriver.FindElement(By.CssSelector("button[aria-label='menu']")).Click();
+            Sleep();
+            Actions ac = new Actions(Webdriver);
+            element = Webdriver.FindElement(By.CssSelector("a[href='/dishwashers']"));
+            ac.MoveToElement(element).Perform();
+            int COUNT = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("li")).Count();
+            ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
+            ac.Reset();
+            List<string> _titles = new List<string>();
+            for (int i = 0; i < COUNT; i++)
+            {
+                string title = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("a"))[i].GetAttribute("title");
+                _titles.Add(title);
+                element = Webdriver.FindElement(By.CssSelector("a[title='" + _titles[i] + "']"));
+                ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
+                ac.Reset();
+            }
+            for (int j = COUNT; j > 0; j--)
+            {
+                string error = null;
+                string error_2 = null;
+                Webdriver.SwitchTo().Window(Webdriver.WindowHandles[j]);
+                error_2 = Webdriver.Title;
+                if (error_2 == "Server Error")
+                {
+                    Assert.Fail();
+                }
+                try
+                {
+                    error = Webdriver.FindElement(By.CssSelector("div[class='pnf-title']")).Text.Trim();
+                    if (error.Contains("404"))
+                    {
+                        Assert.Fail();
+                    }
+                }
+                catch (Exception)
+                {
+                    _wait2();
+                    Webdriver.Close();
+                }
+            }
+            Webdriver.Quit();
+        }
+
+
+        [TestMethod]
+        public void HomePage_06_Products_05_AirCondition()
+        {
+            _Start();
+            Webdriver.FindElement(By.CssSelector("button[aria-label='menu']")).Click();
+            Sleep();
+            Actions ac = new Actions(Webdriver);
+            element = Webdriver.FindElement(By.CssSelector("a[href='/air-conditioners']"));
+            ac.MoveToElement(element).Perform();
+            int COUNT = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("li")).Count();
+            ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
+            ac.Reset();
+            List<string> _titles = new List<string>();
+            for (int i = 0; i < COUNT; i++)
+            {
+                string title = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("a"))[i].GetAttribute("title");
+                _titles.Add(title);
+                element = Webdriver.FindElement(By.CssSelector("a[title='" + _titles[i] + "']"));
+                ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
+                ac.Reset();
+            }
+            for (int j = COUNT; j > 0; j--)
+            {
+                string error = null;
+                string error_2 = null;
+                Webdriver.SwitchTo().Window(Webdriver.WindowHandles[j]);
+                error_2 = Webdriver.Title;
+                if (error_2 == "Server Error")
+                {
+                    Assert.Fail();
+                }
+                try
+                {
+                    error = Webdriver.FindElement(By.CssSelector("div[class='pnf-title']")).Text.Trim();
+                    if (error.Contains("404"))
+                    {
+                        Assert.Fail();
+                    }
+                }
+                catch (Exception)
+                {
+                    _wait2();
+                    Webdriver.Close();
+                }
+            }
+            Webdriver.Quit();
+        }
+
+
+        [TestMethod]
+        public void HomePage_06_Products_06_WaterDispenser()
+        {
+            _Start();
+            Webdriver.FindElement(By.CssSelector("button[aria-label='menu']")).Click();
+            Sleep();
+            Actions ac = new Actions(Webdriver);
+            element = Webdriver.FindElement(By.CssSelector("a[href='/water-dispensers']"));
+            ac.MoveToElement(element).Perform();
+            int COUNT = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("li")).Count();
+            ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
+            ac.Reset();
+            List<string> _titles = new List<string>();
+            for (int i = 0; i < COUNT; i++)
+            {
+                string title = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("a"))[i].GetAttribute("title");
+                _titles.Add(title);
+                element = Webdriver.FindElement(By.CssSelector("a[title='" + _titles[i] + "']"));
+                ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
+                ac.Reset();
+            }
+            for (int j = COUNT; j > 0; j--)
+            {
+                string error = null;
+                string error_2 = null;
+                Webdriver.SwitchTo().Window(Webdriver.WindowHandles[j]);
+                error_2 = Webdriver.Title;
+                if (error_2 == "Server Error")
+                {
+                    Assert.Fail();
+                }
+                try
+                {
+                    error = Webdriver.FindElement(By.CssSelector("div[class='pnf-title']")).Text.Trim();
+                    if (error.Contains("404"))
+                    {
+                        Assert.Fail();
+                    }
+                }
+                catch (Exception)
+                {
+                    _wait2();
+                    Webdriver.Close();
+                }
+            }
+            Webdriver.Quit();
+        }
+
+
+        [TestMethod]
+        public void HomePage_06_Products_07_SmallDomesticAppliances()
+        {
+            _Start();
+            Webdriver.FindElement(By.CssSelector("button[aria-label='menu']")).Click();
+            Sleep();
+            Actions ac = new Actions(Webdriver);
+            element = Webdriver.FindElement(By.CssSelector("a[href='/small-domestic-appliances']"));
+            ac.MoveToElement(element).Perform();
+            int COUNT = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("li")).Count();
+            ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
+            ac.Reset();
+            List<string> _titles = new List<string>();
+            for (int i = 0; i < COUNT; i++)
+            {
+                string title = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("a"))[i].GetAttribute("title");
+                _titles.Add(title);
+                element = Webdriver.FindElement(By.CssSelector("a[title='" + _titles[i] + "']"));
+                ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
+                ac.Reset();
+            }
+            for (int j = COUNT; j > 0; j--)
+            {
+                string error = null;
+                string error_2 = null;
+                Webdriver.SwitchTo().Window(Webdriver.WindowHandles[j]);
+                error_2 = Webdriver.Title;
+                if (error_2 == "Server Error")
+                {
+                    Assert.Fail();
+                }
+                try
+                {
+                    error = Webdriver.FindElement(By.CssSelector("div[class='pnf-title']")).Text.Trim();
+                    if (error.Contains("404"))
+                    {
+                        Assert.Fail();
+                    }
+                }
+                catch (Exception)
+                {
+                    _wait2();
+                    Webdriver.Close();
+                }
+            }
+            Webdriver.Quit();
+        }
+
+
+
+        [TestMethod]
+        public void HomePage_06_Products_08_PersonelCare()
+        {
+            _Start();
+            Webdriver.FindElement(By.CssSelector("button[aria-label='menu']")).Click();
+            Sleep();
+            Actions ac = new Actions(Webdriver);
+            element = Webdriver.FindElement(By.CssSelector("a[href='/personal-care']"));
+            ac.MoveToElement(element).Perform();
+            int COUNT = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("li")).Count();
+            ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
+            ac.Reset();
+            List<string> _titles = new List<string>();
+            for (int i = 0; i < COUNT - 4; i++)
+            {
+                string title = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("a"))[i].GetAttribute("title");
+                _titles.Add(title);
+                element = Webdriver.FindElement(By.CssSelector("a[title='" + _titles[i] + "']"));
+                ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
+                ac.Reset();
+            }
+            for (int j = COUNT - 4; j > 0; j--)
+            {
+                string error = null;
+                string error_2 = null;
+                Webdriver.SwitchTo().Window(Webdriver.WindowHandles[j]);
+                error_2 = Webdriver.Title;
+                if (error_2 == "Server Error")
+                {
+                    Assert.Fail();
+                }
+                try
+                {
+                    error = Webdriver.FindElement(By.CssSelector("div[class='pnf-title']")).Text.Trim();
+                    if (error.Contains("404"))
+                    {
+                        Assert.Fail();
+                    }
+                }
+                catch (Exception)
+                {
+                    _wait2();
+                    Webdriver.Close();
+                }
+            }
+            Webdriver.Quit();
+        }
+
+
+        [TestMethod]
+        public void HomePage_07_Banner()
+        {
+            _Start();
+            _wait2();
+            //Main Slider Right
+            Webdriver.FindElements(By.XPath("//div[@aria-label='Next slide']"))[0].Click();
+            Sleep();
+            //Main Slider Left
+            Webdriver.FindElements(By.XPath("//div[@aria-label='Previous slide']"))[0].Click();
+            Sleep();
+            string title = Webdriver.FindElements(By.ClassName("bnr-title"))[9].Text.Trim();
+            if (title == "Dawlance")
+            {
+                element = Webdriver.FindElement(By.CssSelector("a[title='Discover']"));
+                ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+                element.Click();
+                _wait2();
+                Webdriver.Quit();
+            }
+            else
+            {
+                Assert.Fail();
+            }
+        }
+
+
+        [TestMethod]
+        public void HomePage_08_SliderCategories()
+        {
+            _Start();
+            Actions ac = new Actions(Webdriver);
+            element = Webdriver.FindElements(By.XPath("//div[@aria-label='Next slide']"))[2];
+            ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+            Sleep();
+            Webdriver.FindElements(By.XPath("//div[@aria-label='Next slide']"))[2].Click();
+            Sleep();
+            //Main Slider Left
+            Webdriver.FindElements(By.XPath("//div[@aria-label='Previous slide']"))[2].Click();
+            Sleep();
+            element = Webdriver.FindElement(By.Id("category-swiper")).FindElement(By.CssSelector("div[data-order='0']"));
+            ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+            Sleep();
+            int COUNT = Webdriver.FindElement(By.Id("category-swiper")).FindElements(By.CssSelector("div[data-order]")).Count();
+            if (COUNT > 0)
+            {
+                for (int i = 0; i < COUNT; i++)
+                {
+                    element = Webdriver.FindElement(By.Id("category-swiper")).FindElement(By.CssSelector("div[data-order='" + i + "']"));
+                    ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
+                    ac.Reset();
+                }
+                for (int j = COUNT; j > 0; j--)
+                {
+                    string error = null;
+                    string error_2 = null;
+                    Webdriver.SwitchTo().Window(Webdriver.WindowHandles[j]);
+                    error_2 = Webdriver.Title;
+                    if (error_2 == "Server Error")
+                    {
+                        Assert.Fail();
+                    }
+                    try
+                    {
+                        error = Webdriver.FindElement(By.CssSelector("div[class='pnf-title']")).Text.Trim();
+                        if (error.Contains("404"))
+                        {
+                            Assert.Fail();
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        _wait2();
+                        Webdriver.Close();
+                    }
+                }
+                Webdriver.Quit();
+            }
+            else
+            {
+                Assert.Fail();
+            }
+        }
+
+
+        [TestMethod]
+        public void HomePage_09_PopularProducts()
+        {
+            _Start();
+            Actions ac = new Actions(Webdriver);
+            element = Webdriver.FindElement(By.Id("popular-products"));
+            ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+            Sleep();
+            int COUNT = Webdriver.FindElement(By.Id("popular-products")).FindElements(By.CssSelector("div[data-order]")).Count();
+            if (COUNT > 0)
+            {
+                for (int i = 0; i < COUNT -7; i++)
+                {
+                    element = Webdriver.FindElement(By.Id("popular-products")).FindElements(By.CssSelector("a[title='Review']"))[i];
+                    ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
+                    ac.Reset();
+                }
+                for (int j = COUNT -7; j > 0; j--)
+                {
+                    string error = null;
+                    string error_2 = null;
+                    Webdriver.SwitchTo().Window(Webdriver.WindowHandles[j]);
+                    error_2 = Webdriver.Title;
+                    if (error_2 == "Server Error")
+                    {
+                        Assert.Fail();
+                    }
+                    try
+                    {
+                        error = Webdriver.FindElement(By.CssSelector("div[class='pnf-title']")).Text.Trim();
+                        if (error.Contains("404"))
+                        {
+                            Assert.Fail();
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        _wait2();
+                        Webdriver.Close();
+                    }
+                }
+                Webdriver.Quit();
+            }
+            else
+            {
+                Assert.Fail();
+            }
+        }
+
+
+        [TestMethod]
+        public void HomePage_10_BestSeller()
+        {
+            _Start();
+            Actions ac = new Actions(Webdriver);
+            element = Webdriver.FindElements(By.CssSelector("a[title='Review']"))[10];
+            ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+            Sleep();
+            for (int i = 10; i < 13; i++)
+            {
+                element = Webdriver.FindElements(By.CssSelector("a[title='Review']"))[i];
+                ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
+                ac.Reset();
+            }
+            for (int j = 3; j > 0; j--)
+            {
+                string error = null;
+                string error_2 = null;
+                Webdriver.SwitchTo().Window(Webdriver.WindowHandles[j]);
+                error_2 = Webdriver.Title;
+                if (error_2 == "Server Error")
+                {
+                    Assert.Fail();
+                }
+                try
+                {
+                    error = Webdriver.FindElement(By.CssSelector("div[class='pnf-title']")).Text.Trim();
+                    if (error.Contains("404"))
+                    {
+                        Assert.Fail();
+                    }
+                }
+                catch (Exception)
+                {
+                    _wait2();
+                    Webdriver.Close();
+                }
+            }
+            Webdriver.Quit();
+        }
 
         //*******************************  HomePage End
 
