@@ -54,6 +54,44 @@ namespace dawlance_test_automation
 
         //*******************************  User Operations Start
 
+        [TestMethod]
+        public void User_01_Login()
+        {
+            _Start();
+            Webdriver.FindElement(By.CssSelector("a[href='/login']")).Click();
+            _wait2();
+            Webdriver.FindElement(By.Id("j_username")).SendKeys("s.uat.ustunkayaarcelik@gmail.com");
+            Webdriver.FindElement(By.Id("j_password")).SendKeys("Ss123456");
+            element = Webdriver.FindElement(By.Id("form-login-btn"));
+            ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+            element.Click();
+        }
+
+
+
+        [TestMethod]
+        public void User_02_Info()
+        {
+            User_01_Login();
+            Sleep();
+            _wait2();
+            Webdriver.FindElement(By.XPath("//a[@data-selector='user-name']")).Click();
+            _wait2();
+            Webdriver.FindElement(By.Id("name")).Clear();
+            Webdriver.FindElement(By.Id("name")).SendKeys("Test");
+            Webdriver.FindElement(By.Id("surname")).Clear();
+            Webdriver.FindElement(By.Id("surname")).SendKeys("Test");
+            Webdriver.FindElement(By.Id("gender")).Click();
+            Webdriver.FindElement(By.Id("gender")).FindElement(By.CssSelector("option[value='MALE']")).Click();
+            element = Webdriver.FindElement(By.Id("birthDate"));
+            ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+            element.Clear();
+            element.SendKeys("12/10/1978");
+            Webdriver.FindElement(By.Id("g-recaptcha-btn-profile")).Click();
+            _wait2();
+            Webdriver.Quit();
+        }
+
         //*******************************  User Operations End
 
 
