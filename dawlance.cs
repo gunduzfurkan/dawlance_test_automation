@@ -413,7 +413,6 @@ namespace dawlance_test_automation
         public void User_11_ChangePassword() 
         {
             User_01_Login();
-            WebDriverWait wait = new WebDriverWait(Webdriver, TimeSpan.FromSeconds(60));
             Sleep();
             _wait2();
             Webdriver.FindElement(By.XPath("//a[@data-selector='user-name']")).Click();
@@ -427,6 +426,120 @@ namespace dawlance_test_automation
             Webdriver.Quit();
         }
 
+
+
+
+        [TestMethod]
+        public void User_12_Wishlist()
+        {
+            User_01_Login();
+            Sleep();
+            _wait2();
+            Webdriver.FindElement(By.XPath("//a[@data-selector='user-name']")).Click();
+            _wait2();
+            Webdriver.FindElement(By.XPath("//a[@href='/my-account/favourites ']")).Click();
+            _wait2();
+            try
+            {
+                //if wishlist is full
+                element = Webdriver.FindElement(By.XPath("//button[@title='Clear List']"));
+                ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+                element.Click();
+                _wait2();
+                string CHECHK_WISHLIST = Webdriver.FindElement(By.XPath("//div[@class='t']")).Text.Trim();
+                if (CHECHK_WISHLIST == "Your wishlist is empty")
+                {
+                    Webdriver.FindElement(By.XPath("//div[@class='logo']")).Click();
+                    _wait2();
+                }
+            }
+            catch (Exception)
+            {
+                //if wishlist is empty
+                string CHECHK_WISHLIST = Webdriver.FindElement(By.XPath("//div[@class='t']")).Text.Trim();
+                if (CHECHK_WISHLIST == "Your wishlist is empty")
+                {
+                    Webdriver.FindElement(By.XPath("//div[@class='logo']")).Click();
+                    _wait2();
+                }
+            }
+            WebDriverWait wait = new WebDriverWait(Webdriver, TimeSpan.FromSeconds(60));
+            Webdriver.FindElement(By.CssSelector("button[aria-label='menu']")).Click();
+            Sleep();
+            Actions ac = new Actions(Webdriver);
+            element = Webdriver.FindElement(By.CssSelector("a[href='/refrigerators-and-freezers']"));
+            ac.MoveToElement(element).Perform();
+            ac.Reset();
+            Webdriver.FindElement(By.XPath("//a[@href='/refrigerators']")).Click();
+            _wait2();
+            //PLP Wishlist
+            element = Webdriver.FindElement(By.XPath("//button[@data-title='9193LF Avante+ Sapphire Purple']"));
+            ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+            element.Click();
+            Sleep();
+            Webdriver.FindElement(By.XPath("//button[@class='menu-btn-star add-my-list']")).Click();
+            Sleep();
+            Webdriver.FindElements(By.XPath("//button[@class='btn-close']"))[3].Click();
+            //PDP Wishlist
+            element = Webdriver.FindElements(By.XPath("//a[@href='/double-door-refrigerator/91999-avante-ruby-red-refrigerators']"))[0];
+            ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+            element.Click();
+            _wait2();
+            Webdriver.FindElements(By.XPath("//button[@data-title='91999 Avante+ Ruby Red']"))[1].Click();
+            Sleep();
+            Webdriver.FindElement(By.XPath("//button[@class='menu-btn-star add-my-list']")).Click();
+            Sleep();
+            Webdriver.FindElements(By.XPath("//button[@class='btn-close']"))[2].Click();
+            Sleep();
+            //Basket Wishlist
+            Webdriver.FindElement(By.CssSelector("button[aria-label='menu']")).Click();
+            Sleep();
+            element = Webdriver.FindElement(By.CssSelector("a[href='/refrigerators-and-freezers']"));
+            ac.MoveToElement(element).Perform();
+            ac.Reset();
+            Webdriver.FindElement(By.XPath("//a[@href='/refrigerators']")).Click();
+            _wait2();
+            element = Webdriver.FindElements(By.XPath("//a[@href='/double-door-refrigerator/9173wb-avante-sapphire-purple-refrigerators']"))[0];
+            ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+            element.Click();
+            _wait2();
+            Webdriver.FindElement(By.XPath("//button[@title='Add to Cart']")).Click();
+            wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("a[title='Go to Cart']"))).Click();
+            _wait2();
+            Webdriver.FindElement(By.XPath("//button[@class='link-inline add-my-list']")).Click();
+            Sleep();
+            //Go Profile
+            Webdriver.FindElement(By.XPath("//a[@data-selector='user-name']")).Click();
+            _wait2();
+            Webdriver.FindElement(By.XPath("//a[@href='/my-account/favourites ']")).Click();
+            _wait2();
+            string FIRST_PROD = Webdriver.FindElements(By.XPath("//div[@class='fav-name']"))[0].Text.Trim();
+            string SECOND_PROD = Webdriver.FindElements(By.XPath("//div[@class='fav-name']"))[1].Text.Trim();
+            string THIRD_PROD = Webdriver.FindElements(By.XPath("//div[@class='fav-name']"))[2].Text.Trim();
+            if (FIRST_PROD == "9173WB Avante+ Sapphire Purple")
+            {
+                if (SECOND_PROD == "91999 Avante+ Ruby Red")
+                {
+                    if (THIRD_PROD == "9193LF Avante+ Sapphire Purple")
+                    {
+                        Sleep();
+                        Webdriver.Quit();
+                    }
+                    else
+                    {
+                        Assert.Fail();
+                    }
+                }
+                else
+                {
+                    Assert.Fail();
+                }
+            }
+            else
+            {
+                Assert.Fail();
+            }
+        }
         //*******************************  User Operations End
 
 
@@ -1164,6 +1277,76 @@ namespace dawlance_test_automation
 
         //*******************************  Payment Start
 
+        [TestMethod]
+        public void Payment_01_CreditCard()
+        {
+            User_01_Login();
+            Sleep();
+            WebDriverWait wait = new WebDriverWait(Webdriver, TimeSpan.FromSeconds(60));
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)Webdriver;
+            Basket_Control();
+            _wait2();
+            Actions ac = new Actions(Webdriver);
+            Webdriver.FindElement(By.CssSelector("button[aria-label='menu']")).Click();
+            Sleep();
+            element = Webdriver.FindElement(By.CssSelector("a[href='/refrigerators-and-freezers']"));
+            ac.MoveToElement(element).Perform();
+            ac.Reset();
+            Webdriver.FindElement(By.XPath("//a[@href='/refrigerators']")).Click();
+            _wait2();
+            element = Webdriver.FindElements(By.XPath("//a[@href='/double-door-refrigerator/9193lf-avante-sapphire-purple-refrigerators']"))[0];
+            ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+            Sleep();
+            element.Click();
+            _wait2();
+            Webdriver.FindElement(By.XPath("//button[@title='Add to Cart']")).Click();
+            wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("a[title='Go to Cart']"))).Click();
+            _wait2();
+            element = Webdriver.FindElement(By.XPath("//a[@title='Continue Checkout']"));
+            ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+            Sleep();
+            element.Click();
+            element = Webdriver.FindElement(By.Id("pay-payment-checkout"));
+            ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+            Sleep();
+            element.Click();
+            element = Webdriver.FindElement(By.Id("cardNumber"));
+            ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+            Sleep();
+            element.SendKeys("4242424242424242");
+            Webdriver.FindElement(By.Id("chk_cart_sum_confirm_2")).Click();
+            Sleep();
+            Webdriver.FindElement(By.Id("expiryDate")).SendKeys("1230");
+            Sleep();
+            element = Webdriver.FindElement(By.Id("cvv"));
+            element.SendKeys("0");
+            element.SendKeys("1");
+            element.SendKeys("0");
+            element.SendKeys("0");
+            Webdriver.FindElement(By.Id("postPayment")).Click();
+            Sleep();
+            _wait2();
+            wait.Until(ExpectedConditions.FrameToBeAvailableAndSwitchToIt("cko-3ds2-iframe"));
+            element = wait.Until(ExpectedConditions.ElementIsVisible(By.Id("password")));
+            element.SendKeys("Checkout1!");
+            element = Webdriver.FindElement(By.Id("txtButton"));
+            element.Click();
+            Webdriver.SwitchTo().DefaultContent();
+            _wait2();
+            string RESULT = Webdriver.FindElement(By.XPath("//div[@class='result-grid-header']")).Text.Trim();
+            if (RESULT.Contains("Thank you!"))
+            {
+                Sleep();
+                Webdriver.Quit();
+            }
+            else
+            {
+                Assert.Fail();
+            }
+        }
+
+
+
         //*******************************  Payment End
 
 
@@ -1183,6 +1366,38 @@ namespace dawlance_test_automation
 
         //*******************************  Methods
 
+
+        public void Basket_Control()
+        {
+            _wait2();
+            Webdriver.FindElement(By.XPath("//a[@class='btn-cart']")).Click();
+            try
+            {
+                //Sepet Doluysa
+
+                _wait2();
+                element = Webdriver.FindElement(By.CssSelector("button[class='link-inline js-remove-cart-entries']"));
+                ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+                Sleep();
+                Webdriver.FindElement(By.CssSelector("button[class='link-inline js-remove-cart-entries']")).Click();
+
+                _wait2();
+                element = Webdriver.FindElement(By.CssSelector("a[class='btn btn-primary']"));
+                ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+                Sleep();
+                Webdriver.FindElement(By.CssSelector("a[class='btn btn-primary']")).Click();
+
+            }
+            catch (Exception)
+            {
+                //Sepet Boşsa
+                _wait2();
+                element = Webdriver.FindElement(By.CssSelector("a[class='btn btn-primary']"));
+                ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+                Sleep();
+                Webdriver.FindElement(By.CssSelector("a[class='btn btn-primary']")).Click();
+            }
+        }
 
 
         public void cookie()
