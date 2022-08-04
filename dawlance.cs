@@ -92,6 +92,341 @@ namespace dawlance_test_automation
             Webdriver.Quit();
         }
 
+
+
+        [TestMethod]
+        public void User_03_AddAddress()
+        {
+            User_01_Login();
+            Sleep();
+            _wait2();
+            Webdriver.FindElement(By.XPath("//a[@data-selector='user-name']")).Click();
+            _wait2();
+            Webdriver.FindElement(By.CssSelector("button[title='Add New Address']")).Click();
+            Sleep();
+            Webdriver.FindElement(By.Id("fullName")).SendKeys("Deneme Deneme");
+            Webdriver.FindElement(By.Id("phone")).SendKeys("000000000");
+            Webdriver.FindElement(By.Id("cityCode")).Click();
+            Webdriver.FindElement(By.CssSelector("option[value='921']")).Click();
+            Webdriver.FindElement(By.Id("townCode")).Click();
+            Webdriver.FindElement(By.CssSelector("option[value='921.1']")).Click();
+            Webdriver.FindElement(By.Id("neighborhood")).Click();
+            Webdriver.FindElement(By.CssSelector("option[value='150000']")).Click();
+            Webdriver.FindElement(By.Id("line1")).SendKeys("Deneme Ev Adresi");
+            Webdriver.FindElement(By.Id("addressName")).Clear();
+            Webdriver.FindElement(By.Id("addressName")).SendKeys("Yeni Ev Adresi");
+            Webdriver.FindElement(By.XPath("//button[@title='Save Address']")).Click();
+            Sleep();
+            Webdriver.Quit();
+        }
+
+
+
+        [TestMethod]
+        public void User_04_UpdateAddress()
+        {
+            User_01_Login();
+            Sleep();
+            _wait2();
+            Webdriver.FindElement(By.XPath("//a[@data-selector='user-name']")).Click();
+            _wait2();
+            int _count = Webdriver.FindElement(By.CssSelector("div[class='usr-addresses']")).FindElements(By.CssSelector("div[class='item']")).Count();
+            List<string> Listaddress = new List<string>();
+            for (int i = 0; i < _count; i++)
+            {
+                string address = Webdriver.FindElement(By.CssSelector("div[class='usr-addresses']")).FindElements(By.CssSelector("div[class='t']"))[i].Text.Trim();
+                Listaddress.Add(address);
+            }
+            int findIndex = Listaddress.FindIndex(x => x == "Yeni Ev Adresi");
+            Webdriver.FindElement(By.CssSelector("div[class='usr-addresses']")).FindElements(By.CssSelector("div[class='item']"))[findIndex].FindElement(By.CssSelector("a[class='link-inline js-edit-address']")).Click();
+            Sleep();
+            Webdriver.FindElement(By.Id("cityCode")).Click();
+            Webdriver.FindElement(By.CssSelector("option[value='922']")).Click();
+            Webdriver.FindElement(By.Id("townCode")).Click();
+            Webdriver.FindElement(By.CssSelector("option[value='922.2']")).Click();
+            Webdriver.FindElement(By.Id("neighborhood")).Click();
+            Webdriver.FindElement(By.CssSelector("option[value='150175']")).Click();
+            Webdriver.FindElement(By.Id("line1")).SendKeys("AB");
+            Webdriver.FindElement(By.Id("addressName")).Clear();
+            Webdriver.FindElement(By.Id("addressName")).SendKeys("Düzenlenmiş Ev Adresi");
+            Webdriver.FindElement(By.CssSelector("button[class='btn btn-primary js-save-address']")).Click();
+            Sleep();
+            Webdriver.Quit();
+        }
+
+
+
+        [TestMethod]
+        public void User_05_DeleteAddress()
+        {
+            User_01_Login();
+            Sleep();
+            _wait2();
+            Webdriver.FindElement(By.XPath("//a[@data-selector='user-name']")).Click();
+            _wait2();
+            int _count = Webdriver.FindElement(By.CssSelector("div[class='usr-addresses']")).FindElements(By.CssSelector("div[class='item']")).Count();
+            List<string> Listaddress = new List<string>();
+            for (int i = 0; i < _count; i++)
+            {
+                string address = Webdriver.FindElement(By.CssSelector("div[class='usr-addresses']")).FindElements(By.CssSelector("div[class='t']"))[i].Text.Trim();
+                Listaddress.Add(address);
+            }
+            int findIndex = Listaddress.FindIndex(x => x == "Düzenlenmiş Ev Adresi");
+            Webdriver.FindElement(By.CssSelector("div[class='usr-addresses']")).FindElements(By.CssSelector("div[class='item']"))[findIndex].FindElement(By.CssSelector("a[class='link-inline js-remove-address js-ov-trg mr-10']")).Click();
+            Sleep();
+            Webdriver.FindElement(By.CssSelector("button[title='Remove']")).Click();
+            Sleep();
+            Webdriver.Quit();
+        }
+
+
+
+        [TestMethod]
+        public void User_06_AddressValidation()
+        {
+            User_01_Login();
+            Sleep();
+            _wait2();
+            Webdriver.FindElement(By.XPath("//a[@data-selector='user-name']")).Click();
+            _wait2();
+            Webdriver.FindElement(By.CssSelector("button[title='Add New Address']")).Click();
+            Sleep();
+            Webdriver.FindElement(By.CssSelector("button[class='btn btn-primary js-save-address']")).Click();
+            Sleep();
+            string name_validation = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[0].Text.Trim();
+            if (name_validation == "Please enter name and surname")
+            {
+                string phone_validation = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[1].Text.Trim();
+                if (phone_validation == "Please enter a valid phone number (e.g. +92-311-1111111)")
+                {
+                    string village_validation = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[2].Text.Trim();
+                    if (village_validation == "Please select a town")
+                    {
+                        string street_validation = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[3].Text.Trim();
+                        if (street_validation == "Please choose a neighborhood.")
+                        {
+                            string adresDetail_validation = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[4].Text.Trim();
+                            if (adresDetail_validation == "Please enter address")
+                            {
+                                string adresName_validation = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[5].Text.Trim();
+                                if (adresName_validation == "Please enter address name")
+                                {
+                                    Sleep();
+                                    Webdriver.Quit();
+                                }
+                                else
+                                {
+                                    Assert.Fail();
+                                }
+                            }
+                            else
+                            {
+                                Assert.Fail();
+                            }
+                        }
+                        else
+                        {
+                            Assert.Fail();
+                        }
+                    }
+                    else
+                    {
+                        Assert.Fail();
+                    }
+                }
+                else
+                {
+                    Assert.Fail();
+                }
+            }
+            else
+            {
+                Assert.Fail();
+            }
+        }
+
+
+
+        [TestMethod]
+        public void User_07_AddCompanyAddress()
+        {
+            User_01_Login();
+            Sleep();
+            _wait2();
+            Webdriver.FindElement(By.XPath("//a[@data-selector='user-name']")).Click();
+            _wait2();
+            Webdriver.FindElement(By.CssSelector("button[title='Add New Address']")).Click();
+            Sleep();
+            Webdriver.FindElement(By.Id("sw_adr_2")).Click();
+            Sleep();
+            Webdriver.FindElement(By.Id("company")).SendKeys("test company");
+            Webdriver.FindElement(By.Id("taxNumber")).SendKeys("4664540663");
+            Webdriver.FindElement(By.Id("phone")).SendKeys("000000000");
+            Webdriver.FindElement(By.Id("cityCode")).Click();
+            Webdriver.FindElement(By.CssSelector("option[value='921']")).Click();
+            Webdriver.FindElement(By.Id("townCode")).Click();
+            Webdriver.FindElement(By.CssSelector("option[value='921.1']")).Click();
+            Webdriver.FindElement(By.Id("neighborhood")).Click();
+            Webdriver.FindElement(By.CssSelector("option[value='150000']")).Click();
+            Webdriver.FindElement(By.Id("line1")).SendKeys("Deneme Kurumsal Adres");
+            Webdriver.FindElement(By.Id("addressName")).Clear();
+            Webdriver.FindElement(By.Id("addressName")).SendKeys("Yeni Adres Kurumsal");
+            Webdriver.FindElement(By.CssSelector("button[class='btn btn-primary js-save-address']")).Click();
+            Sleep();
+            Webdriver.Quit();
+        }
+
+
+
+        [TestMethod]
+        public void User_08_UpdateCompanyAddress()
+        {
+            User_01_Login();
+            Sleep();
+            _wait2();
+            Webdriver.FindElement(By.XPath("//a[@data-selector='user-name']")).Click();
+            _wait2();
+            int _count = Webdriver.FindElement(By.CssSelector("div[class='usr-addresses']")).FindElements(By.CssSelector("div[class='item']")).Count();
+            List<string> _adressList = new List<string>();
+            for (int i = 0; i < _count; i++)
+            {
+                string adress = Webdriver.FindElement(By.CssSelector("div[class='usr-addresses']")).FindElements(By.CssSelector("div[class='item']"))[i].FindElement(By.CssSelector("div[class='t']")).Text.Trim();
+                _adressList.Add(adress);
+            }
+            int getindex = _adressList.FindIndex(x => x == "Yeni Adres Kurumsal");
+            Webdriver.FindElements(By.CssSelector("a[class='link-inline js-edit-address']"))[getindex].Click();
+            Sleep();
+            Webdriver.FindElement(By.Id("line1")).Clear();
+            Sleep();
+            Webdriver.FindElement(By.Id("line1")).SendKeys("Deneme Kurumsal Adres");
+            Sleep();
+            Webdriver.FindElement(By.CssSelector("button[class='btn btn-primary js-save-address']")).Click();
+            Sleep();
+            Webdriver.Quit();
+        }
+
+
+
+        [TestMethod]
+        public void User_09_DeleteCompanyAddress()
+        {
+            User_01_Login();
+            Sleep();
+            _wait2();
+            Webdriver.FindElement(By.XPath("//a[@data-selector='user-name']")).Click();
+            _wait2();
+            int _count = Webdriver.FindElement(By.CssSelector("div[class='usr-addresses']")).FindElements(By.CssSelector("div[class='item']")).Count();
+            List<string> _adressList = new List<string>();
+            for (int i = 0; i < _count; i++)
+            {
+                string adress = Webdriver.FindElement(By.CssSelector("div[class='usr-addresses']")).FindElements(By.CssSelector("div[class='item']"))[i].FindElement(By.CssSelector("div[class='t']")).Text.Trim();
+                _adressList.Add(adress);
+            }
+            int getindex = _adressList.FindIndex(x => x == "Yeni Adres Kurumsal");
+            Webdriver.FindElements(By.CssSelector("a[class='link-inline js-remove-address js-ov-trg mr-10']"))[getindex].Click();
+            Webdriver.FindElement(By.CssSelector("button[title='Remove']")).Click();
+            Sleep();
+            Webdriver.Quit();
+        }
+
+
+
+
+        [TestMethod]
+        public void User_10_ValidationCompanyAddress()
+        {
+            User_01_Login();
+            Sleep();
+            _wait2();
+            Webdriver.FindElement(By.XPath("//a[@data-selector='user-name']")).Click();
+            _wait2();
+            Webdriver.FindElement(By.CssSelector("button[title='Add New Address']")).Click();
+            Sleep();
+            Webdriver.FindElement(By.Id("sw_adr_2")).Click();
+            Sleep();
+            Webdriver.FindElement(By.CssSelector("button[class='btn btn-primary js-save-address']")).Click();
+            Sleep();
+            string company_name = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[0].Text.Trim();
+            if (company_name == "Please enter valid company name")
+            {
+                string taxNumber = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[1].Text.Trim();
+                if (taxNumber == "National Tax Number should be entered")
+                {
+                    string phone = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[2].Text.Trim();
+                    if (phone == "Please enter a valid phone number (e.g. +92-311-1111111)")
+                    {
+                        string town = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[3].Text.Trim();
+                        if (town == "Please select a town")
+                        {
+                            string street = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[4].Text.Trim();
+                            if (street == "Please choose a neighborhood.")
+                            {
+                                string adress_detail = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[5].Text.Trim();
+                                if (adress_detail == "Please enter address")
+                                {
+                                    string adress_name = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[6].Text.Trim();
+                                    if (adress_name == "Please enter address name")
+                                    {
+                                        Sleep();
+                                        Webdriver.Quit();
+                                    }
+                                    else
+                                    {
+                                        Assert.Fail();
+                                    }
+                                }
+                                else
+                                {
+                                    Assert.Fail();
+                                }
+                            }
+                            else
+                            {
+                                Assert.Fail();
+                            }
+                        }
+                        else
+                        {
+                            Assert.Fail();
+                        }
+                    }
+                    else
+                    {
+                        Assert.Fail();
+                    }
+                }
+                else
+                {
+                    Assert.Fail();
+                }
+            }
+            else
+            {
+                Assert.Fail();
+            }
+        }
+
+
+
+
+        [TestMethod]
+        public void User_11_ChangePassword() 
+        {
+            User_01_Login();
+            WebDriverWait wait = new WebDriverWait(Webdriver, TimeSpan.FromSeconds(60));
+            Sleep();
+            _wait2();
+            Webdriver.FindElement(By.XPath("//a[@data-selector='user-name']")).Click();
+            _wait2();
+            Webdriver.FindElement(By.CssSelector("a[href='/my-account/update-password']")).Click();
+            _wait2();
+            Webdriver.FindElement(By.Id("newPassword")).SendKeys("Ss123456");
+            Webdriver.FindElement(By.Id("newPasswordVerification")).SendKeys("Ss123456");
+            Webdriver.FindElement(By.CssSelector("button[title='Save ']")).Click();
+            _wait2();
+            Webdriver.Quit();
+        }
+
         //*******************************  User Operations End
 
 
