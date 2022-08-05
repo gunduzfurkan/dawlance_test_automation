@@ -1353,6 +1353,53 @@ namespace dawlance_test_automation
 
         //*******************************  BasketPage Start
 
+        [TestMethod]
+        public void BasketPage_01_Count()
+        {
+            _Start();
+            WebDriverWait wait = new WebDriverWait(Webdriver, TimeSpan.FromSeconds(60));
+            Actions ac = new Actions(Webdriver);
+            Webdriver.FindElement(By.CssSelector("button[aria-label='menu']")).Click();
+            Sleep();
+            element = Webdriver.FindElement(By.CssSelector("a[href='/refrigerators-and-freezers']"));
+            ac.MoveToElement(element).Perform();
+            ac.Reset();
+            Webdriver.FindElement(By.XPath("//a[@href='/refrigerators']")).Click();
+            _wait2();
+            element = Webdriver.FindElements(By.XPath("//a[@href='/double-door-refrigerator/9193lf-avante-sapphire-purple-refrigerators']"))[0];
+            ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+            Sleep();
+            element.Click();
+            _wait2();
+            Webdriver.FindElement(By.XPath("//button[@title='Add to Cart']")).Click();
+            wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("a[title='Go to Cart']"))).Click();
+            _wait2();
+            Webdriver.FindElement(By.CssSelector("button[class='btn-plus ']")).Click();
+            _wait2();
+            string CHECK_QUANTITY = Webdriver.FindElement(By.XPath("//input[@data-mask='otp']")).GetAttribute("value");
+            if (CHECK_QUANTITY == "2")
+            {
+                Sleep();
+                Webdriver.FindElement(By.CssSelector("button[class='btn-minus']")).Click();
+                _wait2();
+                string LAST_QUANTITY = Webdriver.FindElement(By.XPath("//input[@data-mask='otp']")).GetAttribute("value");
+                if (LAST_QUANTITY == "1")
+                {
+                    Sleep();
+                    Webdriver.Quit();
+                }
+                else
+                {
+                    Assert.Fail();
+                }
+            }
+            else
+            {
+                Assert.Fail();
+            }
+        }
+
+
         //*******************************  BasketPage End
 
 
