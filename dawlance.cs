@@ -216,31 +216,37 @@ namespace dawlance_test_automation
                                 }
                                 else
                                 {
+                                    Webdriver.Quit();
                                     Assert.Fail();
                                 }
                             }
                             else
                             {
+                                Webdriver.Quit();
                                 Assert.Fail();
                             }
                         }
                         else
                         {
+                            Webdriver.Quit();
                             Assert.Fail();
                         }
                     }
                     else
                     {
+                        Webdriver.Quit();
                         Assert.Fail();
                     }
                 }
                 else
                 {
+                    Webdriver.Quit();
                     Assert.Fail();
                 }
             }
             else
             {
+                Webdriver.Quit();
                 Assert.Fail();
             }
         }
@@ -372,36 +378,43 @@ namespace dawlance_test_automation
                                     }
                                     else
                                     {
+                                        Webdriver.Quit();
                                         Assert.Fail();
                                     }
                                 }
                                 else
                                 {
+                                    Webdriver.Quit();
                                     Assert.Fail();
                                 }
                             }
                             else
                             {
+                                Webdriver.Quit();
                                 Assert.Fail();
                             }
                         }
                         else
                         {
+                            Webdriver.Quit();
                             Assert.Fail();
                         }
                     }
                     else
                     {
+                        Webdriver.Quit();
                         Assert.Fail();
                     }
                 }
                 else
                 {
+                    Webdriver.Quit();
                     Assert.Fail();
                 }
             }
             else
             {
+                Webdriver.Quit();
                 Assert.Fail();
             }
         }
@@ -527,16 +540,19 @@ namespace dawlance_test_automation
                     }
                     else
                     {
+                        Webdriver.Quit();
                         Assert.Fail();
                     }
                 }
                 else
                 {
+                    Webdriver.Quit();
                     Assert.Fail();
                 }
             }
             else
             {
+                Webdriver.Quit();
                 Assert.Fail();
             }
         }
@@ -546,13 +562,221 @@ namespace dawlance_test_automation
 
         //*******************************  PLP Start
 
+        [TestMethod]
+        public void PLP_01_Highlight()
+        {
+            _Start();
+            WebDriverWait wait = new WebDriverWait(Webdriver, TimeSpan.FromSeconds(60));
+            Actions ac = new Actions(Webdriver);
+            Webdriver.FindElement(By.CssSelector("button[aria-label='menu']")).Click();
+            Sleep();
+            element = Webdriver.FindElement(By.CssSelector("a[href='/refrigerators-and-freezers']"));
+            ac.MoveToElement(element).Perform();
+            ac.Reset();
+            Webdriver.FindElement(By.XPath("//a[@href='/refrigerators']")).Click();
+            _wait2();
+            element = Webdriver.FindElements(By.XPath("//div[@class='prd-features']"))[0];
+            ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+            Sleep();
+            string FIRST_PROD = Webdriver.FindElements(By.XPath("//div[@class='prd-features']"))[0].Text.Trim();
+            string SECOND_PROD = Webdriver.FindElements(By.XPath("//div[@class='prd-features']"))[1].Text.Trim();
+            string THIRD_PROD = Webdriver.FindElements(By.XPath("//div[@class='prd-features']"))[2].Text.Trim();
+            if (FIRST_PROD == "Nature Lock Technology : NO\r\nInverter Technology : Yes\r\nVitamin Fresh Technology : Yes\r\nFreezer Position : Top")
+            {
+                if (SECOND_PROD == "Nature Lock Technology : Yes\r\nInverter Technology : Yes\r\nVitamin Fresh Technology : Yes\r\nFreezer Position : Top")
+                {
+                    if (THIRD_PROD == "Nature Lock Technology : Yes\r\nInverter Technology : Yes\r\nVitamin Fresh Technology : Yes\r\nFreezer Position : Top")
+                    {
+                        Sleep();
+                        Webdriver.Quit();
+                    }
+                    else
+                    {
+                        Webdriver.Quit();
+                        Assert.Fail();
+                    }
+                }
+                else
+                {
+                    Webdriver.Quit();
+                    Assert.Fail();
+                }
+            }
+            else
+            {
+                Webdriver.Quit();
+                Assert.Fail();
+            }
+        }
+
+
         //*******************************  PLP End
 
 
 
         //*******************************  PDP Start
 
-        //*******************************  PLP End
+        [TestMethod]
+        public void PDP_01_StoreNearby()
+        {
+            _Start();
+            WebDriverWait wait = new WebDriverWait(Webdriver, TimeSpan.FromSeconds(60));
+            Actions ac = new Actions(Webdriver);
+            Webdriver.FindElement(By.CssSelector("button[aria-label='menu']")).Click();
+            Sleep();
+            element = Webdriver.FindElement(By.CssSelector("a[href='/refrigerators-and-freezers']"));
+            ac.MoveToElement(element).Perform();
+            ac.Reset();
+            Webdriver.FindElement(By.XPath("//a[@href='/refrigerators']")).Click();
+            _wait2();
+            element = Webdriver.FindElements(By.XPath("//a[@href='/double-door-refrigerator/9193lf-avante-sapphire-purple-refrigerators']"))[0];
+            ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+            Sleep();
+            element.Click();
+            _wait2();
+            element = Webdriver.FindElement(By.XPath("//li[@class='pdp-store-locator']"));
+            ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+            Sleep();
+            element.Click();
+            element = Webdriver.FindElement(By.XPath("//button[@title='Find Store']"));
+            ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+            Sleep();
+            Webdriver.FindElement(By.Id("cityCode")).FindElement(By.XPath("//option[@value='922']")).Click();
+            Sleep();
+            Webdriver.FindElement(By.Id("townCode")).FindElement(By.XPath("//option[@value='922.2']")).Click();
+            Sleep();
+            Webdriver.FindElement(By.Id("neighborhood")).FindElement(By.XPath("//option[@value='150176']")).Click();
+            element.Click();
+            Sleep();
+            string RESULT = Webdriver.FindElement(By.XPath("//div[@class='stf-result']")).Text.Trim();
+            if (RESULT == "No store found in the selected area")
+            {
+                Sleep();
+                Webdriver.Quit();
+            }
+            else
+            {
+                Webdriver.Quit();
+                Assert.Fail();
+            }
+        }
+
+
+
+        [TestMethod]
+        public void PDP_02_Highlight()
+        {
+            _Start();
+            WebDriverWait wait = new WebDriverWait(Webdriver, TimeSpan.FromSeconds(60));
+            Actions ac = new Actions(Webdriver);
+            Webdriver.FindElement(By.CssSelector("button[aria-label='menu']")).Click();
+            Sleep();
+            element = Webdriver.FindElement(By.CssSelector("a[href='/refrigerators-and-freezers']"));
+            ac.MoveToElement(element).Perform();
+            ac.Reset();
+            Webdriver.FindElement(By.XPath("//a[@href='/refrigerators']")).Click();
+            _wait2();
+            element = Webdriver.FindElements(By.XPath("//a[@href='/double-door-refrigerator/9193lf-avante-sapphire-purple-refrigerators']"))[0];
+            ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+            Sleep();
+            element.Click();
+            _wait2();
+            element = Webdriver.FindElement(By.XPath("//div[@class='pdp-features']"));
+            ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+            string HIGHLIGHT = element.Text.Trim();
+            if (HIGHLIGHT == "Inverter Technology\r\nYes\r\nVitamin Fresh Technology\r\nYes\r\nFreezer Position\r\nTop")
+            {
+                Sleep();
+                Webdriver.Quit();
+            }
+            else
+            {
+                Webdriver.Quit();
+                Assert.Fail();
+            }
+        }
+
+
+
+        [TestMethod]
+        public void PDP_03_Image()
+        {
+            _Start();
+            WebDriverWait wait = new WebDriverWait(Webdriver, TimeSpan.FromSeconds(60));
+            Actions ac = new Actions(Webdriver);
+            Webdriver.FindElement(By.CssSelector("button[aria-label='menu']")).Click();
+            Sleep();
+            element = Webdriver.FindElement(By.CssSelector("a[href='/refrigerators-and-freezers']"));
+            ac.MoveToElement(element).Perform();
+            ac.Reset();
+            Webdriver.FindElement(By.XPath("//a[@href='/refrigerators']")).Click();
+            _wait2();
+            element = Webdriver.FindElements(By.XPath("//a[@href='/double-door-refrigerator/9193lf-avante-sapphire-purple-refrigerators']"))[0];
+            ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+            Sleep();
+            element.Click();
+            _wait2();
+            string IMAGE_1 = Webdriver.FindElement(By.CssSelector("#pdp-general > div.pdp-gallery > div.swiper-container.swiper-activeted.item-1.swiper-container-initialized.swiper-container-horizontal > div > div > div > div > img")).GetAttribute("srcset");
+            IMAGE_1 = IMAGE_1.Substring(0, IMAGE_1.IndexOf(","));
+            ((IJavaScriptExecutor)Webdriver).ExecuteScript("window.open();");
+            Webdriver.SwitchTo().Window(Webdriver.WindowHandles.Last());
+            Webdriver.Navigate().GoToUrl("https://dawlance-astra.c1m0wu3z2z-arcelikas1-s1-public.model-t.cc.commerce.ondemand.com/" + IMAGE_1);
+            Sleep();
+            string title = Webdriver.Title;
+            if (title.Contains("image.png"))
+            {
+
+                Sleep();
+                Webdriver.Quit();
+            }
+            else
+            {
+                Webdriver.Quit();
+                Assert.Fail();
+            }
+        }
+
+
+
+        [TestMethod]
+        public void PDP_04_ProdSpec()
+        {
+            _Start();
+            WebDriverWait wait = new WebDriverWait(Webdriver, TimeSpan.FromSeconds(60));
+            Actions ac = new Actions(Webdriver);
+            Webdriver.FindElement(By.CssSelector("button[aria-label='menu']")).Click();
+            Sleep();
+            element = Webdriver.FindElement(By.CssSelector("a[href='/refrigerators-and-freezers']"));
+            ac.MoveToElement(element).Perform();
+            ac.Reset();
+            Webdriver.FindElement(By.XPath("//a[@href='/refrigerators']")).Click();
+            _wait2();
+            element = Webdriver.FindElements(By.XPath("//a[@href='/double-door-refrigerator/9193lf-avante-sapphire-purple-refrigerators']"))[0];
+            ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+            Sleep();
+            element.Click();
+            _wait2();
+            element = Webdriver.FindElement(By.XPath("//li[@class='pdp-technical-features']"));
+            ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+            Sleep();
+            element.Click();
+            element = Webdriver.FindElement(By.XPath("//div[@class='pdp-technical-features-list']"));
+            ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+            string SPECIFICATION = element.Text.Trim();
+            if (SPECIFICATION == "Product Highlights\r\nCooling Technology\r\nStatic\r\nInverter Technology\r\nYes\r\nNature Lock Technology\r\nNO\r\nVitamin Fresh Technology\r\nYes\r\nGeneral Details\r\nVoltage (V)\r\n230\r\nClimate Class\r\nT\r\nEnergy Class\r\nA++\r\nFreezer Position\r\nTop\r\nRefrigerant\r\nR600a\r\nInterior\r\nType of Shelf\r\nGlass-All standard\r\nPower Cool Fan\r\nYes\r\nFreezer Light\r\nNO\r\nIce Tray\r\nIcebox (12 pcs)\r\nRefrigerator Light\r\nLED on Left Wall\r\nNumber of Crisper\r\n1\r\nEgg Tray\r\n2\r\nFreezer Door Pockets\r\n2\r\nTotal Shelves\r\n5\r\nRefrigerator Door Pockets\r\n6\r\nExterior\r\nProduct Color\r\nSapphire Purple\r\nDoor Lock\r\nNO\r\nExternal Handle\r\nNO\r\nTouch Display\r\nYes\r\nType of Handle\r\nIntegrated Handle on side\r\nHandle Material\r\nPlastic\r\nProduct Dimensions\r\nWidth (cm)\r\n68\r\nDepth (cm)\r\n64.5\r\nHeight (cm)\r\n173")
+            {
+                Sleep();
+                Webdriver.Quit();
+            }
+            else
+            {
+                Webdriver.Quit();
+                Assert.Fail();
+            }
+        }
+
+
+        //*******************************  PDP End
 
 
 
@@ -575,6 +799,7 @@ namespace dawlance_test_automation
             }
             else
             {
+                Webdriver.Quit();
                 Assert.Fail();
             }
         }
@@ -593,6 +818,7 @@ namespace dawlance_test_automation
             }
             else
             {
+                Webdriver.Quit();
                 Assert.Fail();
             }
         }
@@ -614,6 +840,7 @@ namespace dawlance_test_automation
             }
             else
             {
+                Webdriver.Quit();
                 Assert.Fail();
             }
         }
@@ -642,6 +869,7 @@ namespace dawlance_test_automation
             }
             else
             {
+                Webdriver.Quit();
                 Assert.Fail();
             }
         }
@@ -670,6 +898,11 @@ namespace dawlance_test_automation
                     Webdriver.FindElement(By.CssSelector("a[href='/support']")).Click();
                     _wait2();
                 }
+                else
+                {
+                    Webdriver.Quit();
+                    Assert.Fail();
+                }
             }
             string CATEGORIES = Webdriver.FindElements(By.CssSelector("ul[class='yCmsContentSlot ul-clear category-list']"))[0].Text.Trim();
             if (CATEGORIES == "Air Conditioners\r\nWater Dispensers\r\nSmall Domestic Appliances\r\nCooking Appliances\r\nWashing Machines\r\nRefrigerators and freezers")
@@ -697,6 +930,7 @@ namespace dawlance_test_automation
                 }
                 else
                 {
+                    Webdriver.Quit();
                     Assert.Fail();
                 }
             }
@@ -731,6 +965,7 @@ namespace dawlance_test_automation
                 error_2 = Webdriver.Title;
                 if (error_2 == "Server Error")
                 {
+                    Webdriver.Quit();
                     Assert.Fail();
                 }
                 try
@@ -738,6 +973,7 @@ namespace dawlance_test_automation
                     error = Webdriver.FindElement(By.CssSelector("div[class='pnf-title']")).Text.Trim();
                     if (error.Contains("404"))
                     {
+                        Webdriver.Quit();
                         Assert.Fail();
                     }
                 }
@@ -780,6 +1016,7 @@ namespace dawlance_test_automation
                 error_2 = Webdriver.Title;
                 if (error_2 == "Server Error")
                 {
+                    Webdriver.Quit();
                     Assert.Fail();
                 }
                 try
@@ -787,6 +1024,7 @@ namespace dawlance_test_automation
                     error = Webdriver.FindElement(By.CssSelector("div[class='pnf-title']")).Text.Trim();
                     if (error.Contains("404"))
                     {
+                        Webdriver.Quit();
                         Assert.Fail();
                     }
                 }
@@ -829,6 +1067,7 @@ namespace dawlance_test_automation
                 error_2 = Webdriver.Title;
                 if (error_2 == "Server Error")
                 {
+                    Webdriver.Quit();
                     Assert.Fail();
                 }
                 try
@@ -836,6 +1075,7 @@ namespace dawlance_test_automation
                     error = Webdriver.FindElement(By.CssSelector("div[class='pnf-title']")).Text.Trim();
                     if (error.Contains("404"))
                     {
+                        Webdriver.Quit();
                         Assert.Fail();
                     }
                 }
@@ -878,6 +1118,7 @@ namespace dawlance_test_automation
                 error_2 = Webdriver.Title;
                 if (error_2 == "Server Error")
                 {
+                    Webdriver.Quit();
                     Assert.Fail();
                 }
                 try
@@ -885,6 +1126,7 @@ namespace dawlance_test_automation
                     error = Webdriver.FindElement(By.CssSelector("div[class='pnf-title']")).Text.Trim();
                     if (error.Contains("404"))
                     {
+                        Webdriver.Quit();
                         Assert.Fail();
                     }
                 }
@@ -927,6 +1169,7 @@ namespace dawlance_test_automation
                 error_2 = Webdriver.Title;
                 if (error_2 == "Server Error")
                 {
+                    Webdriver.Quit();
                     Assert.Fail();
                 }
                 try
@@ -934,6 +1177,7 @@ namespace dawlance_test_automation
                     error = Webdriver.FindElement(By.CssSelector("div[class='pnf-title']")).Text.Trim();
                     if (error.Contains("404"))
                     {
+                        Webdriver.Quit();
                         Assert.Fail();
                     }
                 }
@@ -976,6 +1220,7 @@ namespace dawlance_test_automation
                 error_2 = Webdriver.Title;
                 if (error_2 == "Server Error")
                 {
+                    Webdriver.Quit();
                     Assert.Fail();
                 }
                 try
@@ -983,6 +1228,7 @@ namespace dawlance_test_automation
                     error = Webdriver.FindElement(By.CssSelector("div[class='pnf-title']")).Text.Trim();
                     if (error.Contains("404"))
                     {
+                        Webdriver.Quit();
                         Assert.Fail();
                     }
                 }
@@ -1025,6 +1271,7 @@ namespace dawlance_test_automation
                 error_2 = Webdriver.Title;
                 if (error_2 == "Server Error")
                 {
+                    Webdriver.Quit();
                     Assert.Fail();
                 }
                 try
@@ -1032,6 +1279,7 @@ namespace dawlance_test_automation
                     error = Webdriver.FindElement(By.CssSelector("div[class='pnf-title']")).Text.Trim();
                     if (error.Contains("404"))
                     {
+                        Webdriver.Quit();
                         Assert.Fail();
                     }
                 }
@@ -1075,6 +1323,7 @@ namespace dawlance_test_automation
                 error_2 = Webdriver.Title;
                 if (error_2 == "Server Error")
                 {
+                    Webdriver.Quit();
                     Assert.Fail();
                 }
                 try
@@ -1082,6 +1331,7 @@ namespace dawlance_test_automation
                     error = Webdriver.FindElement(By.CssSelector("div[class='pnf-title']")).Text.Trim();
                     if (error.Contains("404"))
                     {
+                        Webdriver.Quit();
                         Assert.Fail();
                     }
                 }
@@ -1117,6 +1367,7 @@ namespace dawlance_test_automation
             }
             else
             {
+                Webdriver.Quit();
                 Assert.Fail();
             }
         }
@@ -1155,6 +1406,7 @@ namespace dawlance_test_automation
                     error_2 = Webdriver.Title;
                     if (error_2 == "Server Error")
                     {
+                        Webdriver.Quit();
                         Assert.Fail();
                     }
                     try
@@ -1162,6 +1414,7 @@ namespace dawlance_test_automation
                         error = Webdriver.FindElement(By.CssSelector("div[class='pnf-title']")).Text.Trim();
                         if (error.Contains("404"))
                         {
+                            Webdriver.Quit();
                             Assert.Fail();
                         }
                     }
@@ -1175,6 +1428,7 @@ namespace dawlance_test_automation
             }
             else
             {
+                Webdriver.Quit();
                 Assert.Fail();
             }
         }
@@ -1205,6 +1459,7 @@ namespace dawlance_test_automation
                     error_2 = Webdriver.Title;
                     if (error_2 == "Server Error")
                     {
+                        Webdriver.Quit();
                         Assert.Fail();
                     }
                     try
@@ -1212,6 +1467,7 @@ namespace dawlance_test_automation
                         error = Webdriver.FindElement(By.CssSelector("div[class='pnf-title']")).Text.Trim();
                         if (error.Contains("404"))
                         {
+                            Webdriver.Quit();
                             Assert.Fail();
                         }
                     }
@@ -1225,6 +1481,7 @@ namespace dawlance_test_automation
             }
             else
             {
+                Webdriver.Quit();
                 Assert.Fail();
             }
         }
@@ -1252,6 +1509,7 @@ namespace dawlance_test_automation
                 error_2 = Webdriver.Title;
                 if (error_2 == "Server Error")
                 {
+                    Webdriver.Quit();
                     Assert.Fail();
                 }
                 try
@@ -1259,6 +1517,7 @@ namespace dawlance_test_automation
                     error = Webdriver.FindElement(By.CssSelector("div[class='pnf-title']")).Text.Trim();
                     if (error.Contains("404"))
                     {
+                        Webdriver.Quit();
                         Assert.Fail();
                     }
                 }
@@ -1341,6 +1600,7 @@ namespace dawlance_test_automation
             }
             else
             {
+                Webdriver.Quit();
                 Assert.Fail();
             }
         }
@@ -1390,11 +1650,13 @@ namespace dawlance_test_automation
                 }
                 else
                 {
+                    Webdriver.Quit();
                     Assert.Fail();
                 }
             }
             else
             {
+                Webdriver.Quit();
                 Assert.Fail();
             }
         }
