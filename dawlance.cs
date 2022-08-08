@@ -1607,6 +1607,54 @@ namespace dawlance_test_automation
 
 
 
+
+
+        [TestMethod]
+        public void Payment_02_CancelOrder()
+        {
+            User_01_Login();
+            Sleep();
+            _wait2();
+            Webdriver.FindElement(By.XPath("//a[@data-selector='user-name']")).Click();
+            _wait2();
+            Webdriver.FindElement(By.CssSelector("a[href='/my-account/orders ']")).Click();
+            _wait2();
+            element = Webdriver.FindElements(By.XPath("//a[@class='link-inline btn-ord-back  ']"))[0];
+            ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+            Sleep();
+            element.Click();
+            _wait2();
+            element = Webdriver.FindElement(By.Id("ocp_reason"));
+            ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+            Sleep();
+            element.FindElement(By.CssSelector("option[value='cReason5_PK_OrderedByMistake']")).Click();
+            Webdriver.FindElement(By.XPath("//button[@title='Proceed']")).Click();
+            _wait2();
+            string RESULT = Webdriver.FindElement(By.XPath("//div[@class='form-result-title']")).Text.Trim();
+            if (RESULT == "Cancel/Return Request Has been Received Successfully.")
+            {
+                Sleep();
+                Webdriver.FindElement(By.XPath("//a[@class='btn btn-primary']")).Click();
+                _wait2();
+                string RETURN = Webdriver.FindElements(By.XPath("//div[@class='ord-bar return']"))[0].Text.Trim();
+                if (RETURN.Contains("Return Request\r\nReceived"))
+                {
+                    Sleep();
+                    Webdriver.Quit();
+                }
+                else
+                {
+                    Webdriver.Quit();
+                    Assert.Fail();
+                }
+            }
+            else
+            {
+                Webdriver.Quit();
+                Assert.Fail();
+            }
+        }
+
         //*******************************  Payment End
 
 
@@ -1662,6 +1710,33 @@ namespace dawlance_test_automation
         }
 
 
+
+
+        [TestMethod]
+        public void BasketPage_02_ClearBasket()
+        {
+            _Start();
+            WebDriverWait wait = new WebDriverWait(Webdriver, TimeSpan.FromSeconds(60));
+            Actions ac = new Actions(Webdriver);
+            Webdriver.FindElement(By.CssSelector("button[aria-label='menu']")).Click();
+            Sleep();
+            element = Webdriver.FindElement(By.CssSelector("a[href='/refrigerators-and-freezers']"));
+            ac.MoveToElement(element).Perform();
+            ac.Reset();
+            Webdriver.FindElement(By.XPath("//a[@href='/refrigerators']")).Click();
+            _wait2();
+            element = Webdriver.FindElements(By.XPath("//a[@href='/double-door-refrigerator/9193lf-avante-sapphire-purple-refrigerators']"))[0];
+            ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+            Sleep();
+            element.Click();
+            _wait2();
+            Webdriver.FindElement(By.XPath("//button[@title='Add to Cart']")).Click();
+            wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("a[title='Go to Cart']"))).Click();
+            Basket_Control();
+            _wait2();
+            Webdriver.Quit();
+        }
+
         //*******************************  BasketPage End
 
 
@@ -1688,13 +1763,13 @@ namespace dawlance_test_automation
                 element = Webdriver.FindElement(By.CssSelector("button[class='link-inline js-remove-cart-entries']"));
                 ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
                 Sleep();
-                Webdriver.FindElement(By.CssSelector("button[class='link-inline js-remove-cart-entries']")).Click();
+                element.Click();
 
                 _wait2();
                 element = Webdriver.FindElement(By.CssSelector("a[class='btn btn-primary']"));
                 ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
                 Sleep();
-                Webdriver.FindElement(By.CssSelector("a[class='btn btn-primary']")).Click();
+                element.Click();
 
             }
             catch (Exception)
@@ -1704,7 +1779,7 @@ namespace dawlance_test_automation
                 element = Webdriver.FindElement(By.CssSelector("a[class='btn btn-primary']"));
                 ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
                 Sleep();
-                Webdriver.FindElement(By.CssSelector("a[class='btn btn-primary']")).Click();
+                element.Click();
             }
         }
 
