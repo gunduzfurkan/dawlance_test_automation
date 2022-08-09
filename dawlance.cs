@@ -581,11 +581,11 @@ namespace dawlance_test_automation
             string FIRST_PROD = Webdriver.FindElements(By.XPath("//div[@class='prd-features']"))[0].Text.Trim();
             string SECOND_PROD = Webdriver.FindElements(By.XPath("//div[@class='prd-features']"))[1].Text.Trim();
             string THIRD_PROD = Webdriver.FindElements(By.XPath("//div[@class='prd-features']"))[2].Text.Trim();
-            if (FIRST_PROD == "Nature Lock Technology : NO\r\nInverter Technology : Yes\r\nVitamin Fresh Technology : Yes\r\nFreezer Position : Top")
+            if (FIRST_PROD == "Vitamin Fresh Technology : Yes\r\nInverter Technology : Yes\r\nCooling Technology : Static\r\nTotal Gross Volume (cu.ft) (Requested By Customer) : 13,52")
             {
-                if (SECOND_PROD == "Nature Lock Technology : Yes\r\nInverter Technology : Yes\r\nVitamin Fresh Technology : Yes\r\nFreezer Position : Top")
+                if (SECOND_PROD == "Vitamin Fresh Technology : Yes\r\nInverter Technology : Yes\r\nCooling Technology : Static\r\nTotal Gross Volume (cu.ft) (Requested By Customer) : 16.45")
                 {
-                    if (THIRD_PROD == "Nature Lock Technology : Yes\r\nInverter Technology : Yes\r\nVitamin Fresh Technology : Yes\r\nFreezer Position : Top")
+                    if (THIRD_PROD == "Vitamin Fresh Technology : Yes\r\nInverter Technology : Yes\r\nCooling Technology : Static\r\nTotal Gross Volume (cu.ft) (Requested By Customer) : 9,49")
                     {
                         Sleep();
                         Webdriver.Quit();
