@@ -60,8 +60,8 @@ namespace dawlance_test_automation
             _Start();
             Webdriver.FindElement(By.CssSelector("a[href='/login']")).Click();
             _wait2();
-            Webdriver.FindElement(By.Id("j_username")).SendKeys("s.uat.ustunkayaarcelik@gmail.com");
-            Webdriver.FindElement(By.Id("j_password")).SendKeys("Ss123456");
+            Webdriver.FindElement(By.Id("j_username")).SendKeys("grundigtest@outlook.com");
+            Webdriver.FindElement(By.Id("j_password")).SendKeys("12345Furkan");
             element = Webdriver.FindElement(By.Id("form-login-btn"));
             ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
             element.Click();
@@ -432,8 +432,8 @@ namespace dawlance_test_automation
             _wait2();
             Webdriver.FindElement(By.CssSelector("a[href='/my-account/update-password']")).Click();
             _wait2();
-            Webdriver.FindElement(By.Id("newPassword")).SendKeys("Ss123456");
-            Webdriver.FindElement(By.Id("newPasswordVerification")).SendKeys("Ss123456");
+            Webdriver.FindElement(By.Id("newPassword")).SendKeys("12345Furkan");
+            Webdriver.FindElement(By.Id("newPasswordVerification")).SendKeys("12345Furkan");
             Webdriver.FindElement(By.CssSelector("button[title='Save ']")).Click();
             _wait2();
             Webdriver.Quit();
