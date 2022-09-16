@@ -62,7 +62,7 @@ namespace dawlance_test_automation
             _wait2();
             Webdriver.FindElement(By.Id("j_username")).SendKeys("grundigtest@outlook.com");
             Webdriver.FindElement(By.Id("j_password")).SendKeys("12345Furkan");
-            element = Webdriver.FindElement(By.Id("form-login-btn"));
+            element = Webdriver.FindElement(By.Id("g-recaptcha-btn-login"));
             ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
             element.Click();
         }
@@ -87,6 +87,8 @@ namespace dawlance_test_automation
             ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
             element.Clear();
             element.SendKeys("12/10/1978");
+            Webdriver.FindElement(By.Id("phoneNumber")).Clear();
+            Webdriver.FindElement(By.Id("phoneNumber")).SendKeys("000000002");
             Webdriver.FindElement(By.Id("g-recaptcha-btn-profile")).Click();
             _wait2();
             Webdriver.Quit();
@@ -115,7 +117,7 @@ namespace dawlance_test_automation
             Webdriver.FindElement(By.Id("line1")).SendKeys("Deneme Ev Adresi");
             Webdriver.FindElement(By.Id("addressName")).Clear();
             Webdriver.FindElement(By.Id("addressName")).SendKeys("Yeni Ev Adresi");
-            Webdriver.FindElement(By.XPath("//button[@title='Save Address']")).Click();
+            Webdriver.FindElement(By.Id("save-address-btn")).Click();
             Sleep();
             Webdriver.Quit();
         }
@@ -149,7 +151,7 @@ namespace dawlance_test_automation
             Webdriver.FindElement(By.Id("line1")).SendKeys("AB");
             Webdriver.FindElement(By.Id("addressName")).Clear();
             Webdriver.FindElement(By.Id("addressName")).SendKeys("Düzenlenmiş Ev Adresi");
-            Webdriver.FindElement(By.CssSelector("button[class='btn btn-primary js-save-address']")).Click();
+            Webdriver.FindElement(By.Id("save-address-btn")).Click();
             Sleep();
             Webdriver.Quit();
         }
@@ -181,80 +183,80 @@ namespace dawlance_test_automation
 
 
 
-        [TestMethod]
-        public void User_06_AddressValidation()
-        {
-            User_01_Login();
-            Sleep();
-            _wait2();
-            Webdriver.FindElement(By.XPath("//a[@data-selector='user-name']")).Click();
-            _wait2();
-            Webdriver.FindElement(By.CssSelector("button[title='Add New Address']")).Click();
-            Sleep();
-            Webdriver.FindElement(By.CssSelector("button[class='btn btn-primary js-save-address']")).Click();
-            Sleep();
-            string name_validation = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[0].Text.Trim();
-            if (name_validation == "Please enter name and surname")
-            {
-                string phone_validation = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[1].Text.Trim();
-                if (phone_validation == "Please enter a valid phone number (e.g. +92-311-1111111)")
-                {
-                    string village_validation = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[2].Text.Trim();
-                    if (village_validation == "Please select a town")
-                    {
-                        string street_validation = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[3].Text.Trim();
-                        if (street_validation == "Please choose a neighborhood.")
-                        {
-                            string adresDetail_validation = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[4].Text.Trim();
-                            if (adresDetail_validation == "Please enter address")
-                            {
-                                string adresName_validation = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[5].Text.Trim();
-                                if (adresName_validation == "Please enter address name")
-                                {
-                                    Sleep();
-                                    Webdriver.Quit();
-                                }
-                                else
-                                {
-                                    Webdriver.Quit();
-                                    Assert.Fail();
-                                }
-                            }
-                            else
-                            {
-                                Webdriver.Quit();
-                                Assert.Fail();
-                            }
-                        }
-                        else
-                        {
-                            Webdriver.Quit();
-                            Assert.Fail();
-                        }
-                    }
-                    else
-                    {
-                        Webdriver.Quit();
-                        Assert.Fail();
-                    }
-                }
-                else
-                {
-                    Webdriver.Quit();
-                    Assert.Fail();
-                }
-            }
-            else
-            {
-                Webdriver.Quit();
-                Assert.Fail();
-            }
-        }
+        //[TestMethod]
+        //public void User_06_AddressValidation()
+        //{
+        //    User_01_Login();
+        //    Sleep();
+        //    _wait2();
+        //    Webdriver.FindElement(By.XPath("//a[@data-selector='user-name']")).Click();
+        //    _wait2();
+        //    Webdriver.FindElement(By.CssSelector("button[title='Add New Address']")).Click();
+        //    Sleep();
+        //    Webdriver.FindElement(By.CssSelector("button[class='btn btn-primary js-save-address']")).Click();
+        //    Sleep();
+        //    string name_validation = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[0].Text.Trim();
+        //    if (name_validation == "Please enter name and surname")
+        //    {
+        //        string phone_validation = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[1].Text.Trim();
+        //        if (phone_validation == "Please enter a valid phone number (e.g. +92-311-1111111)")
+        //        {
+        //            string village_validation = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[2].Text.Trim();
+        //            if (village_validation == "Please select a town")
+        //            {
+        //                string street_validation = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[3].Text.Trim();
+        //                if (street_validation == "Please choose a neighborhood.")
+        //                {
+        //                    string adresDetail_validation = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[4].Text.Trim();
+        //                    if (adresDetail_validation == "Please enter address")
+        //                    {
+        //                        string adresName_validation = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[5].Text.Trim();
+        //                        if (adresName_validation == "Please enter address name")
+        //                        {
+        //                            Sleep();
+        //                            Webdriver.Quit();
+        //                        }
+        //                        else
+        //                        {
+        //                            Webdriver.Quit();
+        //                            Assert.Fail();
+        //                        }
+        //                    }
+        //                    else
+        //                    {
+        //                        Webdriver.Quit();
+        //                        Assert.Fail();
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    Webdriver.Quit();
+        //                    Assert.Fail();
+        //                }
+        //            }
+        //            else
+        //            {
+        //                Webdriver.Quit();
+        //                Assert.Fail();
+        //            }
+        //        }
+        //        else
+        //        {
+        //            Webdriver.Quit();
+        //            Assert.Fail();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        Webdriver.Quit();
+        //        Assert.Fail();
+        //    }
+        //}
 
 
 
         [TestMethod]
-        public void User_07_AddCompanyAddress()
+        public void User_06_AddCompanyAddress()
         {
             User_01_Login();
             Sleep();
@@ -277,7 +279,7 @@ namespace dawlance_test_automation
             Webdriver.FindElement(By.Id("line1")).SendKeys("Deneme Kurumsal Adres");
             Webdriver.FindElement(By.Id("addressName")).Clear();
             Webdriver.FindElement(By.Id("addressName")).SendKeys("Yeni Adres Kurumsal");
-            Webdriver.FindElement(By.CssSelector("button[class='btn btn-primary js-save-address']")).Click();
+            Webdriver.FindElement(By.Id("save-address-btn")).Click();
             Sleep();
             Webdriver.Quit();
         }
@@ -285,7 +287,7 @@ namespace dawlance_test_automation
 
 
         [TestMethod]
-        public void User_08_UpdateCompanyAddress()
+        public void User_07_UpdateCompanyAddress()
         {
             User_01_Login();
             Sleep();
@@ -306,7 +308,7 @@ namespace dawlance_test_automation
             Sleep();
             Webdriver.FindElement(By.Id("line1")).SendKeys("Deneme Kurumsal Adres");
             Sleep();
-            Webdriver.FindElement(By.CssSelector("button[class='btn btn-primary js-save-address']")).Click();
+            Webdriver.FindElement(By.Id("save-address-btn")).Click();
             Sleep();
             Webdriver.Quit();
         }
@@ -314,7 +316,7 @@ namespace dawlance_test_automation
 
 
         [TestMethod]
-        public void User_09_DeleteCompanyAddress()
+        public void User_08_DeleteCompanyAddress()
         {
             User_01_Login();
             Sleep();
@@ -338,92 +340,92 @@ namespace dawlance_test_automation
 
 
 
-        [TestMethod]
-        public void User_10_ValidationCompanyAddress()
-        {
-            User_01_Login();
-            Sleep();
-            _wait2();
-            Webdriver.FindElement(By.XPath("//a[@data-selector='user-name']")).Click();
-            _wait2();
-            Webdriver.FindElement(By.CssSelector("button[title='Add New Address']")).Click();
-            Sleep();
-            Webdriver.FindElement(By.Id("sw_adr_2")).Click();
-            Sleep();
-            Webdriver.FindElement(By.CssSelector("button[class='btn btn-primary js-save-address']")).Click();
-            Sleep();
-            string company_name = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[0].Text.Trim();
-            if (company_name == "Please enter valid company name")
-            {
-                string taxNumber = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[1].Text.Trim();
-                if (taxNumber == "National Tax Number should be entered")
-                {
-                    string phone = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[2].Text.Trim();
-                    if (phone == "Please enter a valid phone number (e.g. +92-311-1111111)")
-                    {
-                        string town = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[3].Text.Trim();
-                        if (town == "Please select a town")
-                        {
-                            string street = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[4].Text.Trim();
-                            if (street == "Please choose a neighborhood.")
-                            {
-                                string adress_detail = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[5].Text.Trim();
-                                if (adress_detail == "Please enter address")
-                                {
-                                    string adress_name = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[6].Text.Trim();
-                                    if (adress_name == "Please enter address name")
-                                    {
-                                        Sleep();
-                                        Webdriver.Quit();
-                                    }
-                                    else
-                                    {
-                                        Webdriver.Quit();
-                                        Assert.Fail();
-                                    }
-                                }
-                                else
-                                {
-                                    Webdriver.Quit();
-                                    Assert.Fail();
-                                }
-                            }
-                            else
-                            {
-                                Webdriver.Quit();
-                                Assert.Fail();
-                            }
-                        }
-                        else
-                        {
-                            Webdriver.Quit();
-                            Assert.Fail();
-                        }
-                    }
-                    else
-                    {
-                        Webdriver.Quit();
-                        Assert.Fail();
-                    }
-                }
-                else
-                {
-                    Webdriver.Quit();
-                    Assert.Fail();
-                }
-            }
-            else
-            {
-                Webdriver.Quit();
-                Assert.Fail();
-            }
-        }
+        //[TestMethod]
+        //public void User_10_ValidationCompanyAddress()
+        //{
+        //    User_01_Login();
+        //    Sleep();
+        //    _wait2();
+        //    Webdriver.FindElement(By.XPath("//a[@data-selector='user-name']")).Click();
+        //    _wait2();
+        //    Webdriver.FindElement(By.CssSelector("button[title='Add New Address']")).Click();
+        //    Sleep();
+        //    Webdriver.FindElement(By.Id("sw_adr_2")).Click();
+        //    Sleep();
+        //    Webdriver.FindElement(By.CssSelector("button[class='btn btn-primary js-save-address']")).Click();
+        //    Sleep();
+        //    string company_name = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[0].Text.Trim();
+        //    if (company_name == "Please enter valid company name")
+        //    {
+        //        string taxNumber = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[1].Text.Trim();
+        //        if (taxNumber == "National Tax Number should be entered")
+        //        {
+        //            string phone = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[2].Text.Trim();
+        //            if (phone == "Please enter a valid phone number (e.g. +92-311-1111111)")
+        //            {
+        //                string town = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[3].Text.Trim();
+        //                if (town == "Please select a town")
+        //                {
+        //                    string street = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[4].Text.Trim();
+        //                    if (street == "Please choose a neighborhood.")
+        //                    {
+        //                        string adress_detail = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[5].Text.Trim();
+        //                        if (adress_detail == "Please enter address")
+        //                        {
+        //                            string adress_name = Webdriver.FindElements(By.CssSelector("div[class='form-error-msg']"))[6].Text.Trim();
+        //                            if (adress_name == "Please enter address name")
+        //                            {
+        //                                Sleep();
+        //                                Webdriver.Quit();
+        //                            }
+        //                            else
+        //                            {
+        //                                Webdriver.Quit();
+        //                                Assert.Fail();
+        //                            }
+        //                        }
+        //                        else
+        //                        {
+        //                            Webdriver.Quit();
+        //                            Assert.Fail();
+        //                        }
+        //                    }
+        //                    else
+        //                    {
+        //                        Webdriver.Quit();
+        //                        Assert.Fail();
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    Webdriver.Quit();
+        //                    Assert.Fail();
+        //                }
+        //            }
+        //            else
+        //            {
+        //                Webdriver.Quit();
+        //                Assert.Fail();
+        //            }
+        //        }
+        //        else
+        //        {
+        //            Webdriver.Quit();
+        //            Assert.Fail();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        Webdriver.Quit();
+        //        Assert.Fail();
+        //    }
+        //}
 
 
 
 
         [TestMethod]
-        public void User_11_ChangePassword() 
+        public void User_09_ChangePassword() 
         {
             User_01_Login();
             Sleep();
@@ -443,7 +445,7 @@ namespace dawlance_test_automation
 
 
         [TestMethod]
-        public void User_12_Wishlist()
+        public void User_10_Wishlist()
         {
             User_01_Login();
             Sleep();
@@ -684,7 +686,7 @@ namespace dawlance_test_automation
             element = Webdriver.FindElement(By.XPath("//div[@class='pdp-features']"));
             ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
             string HIGHLIGHT = element.Text.Trim();
-            if (HIGHLIGHT == "Inverter Technology\r\nYes\r\nVitamin Fresh Technology\r\nYes\r\nFreezer Position\r\nTop")
+            if (HIGHLIGHT == "Vitamin Fresh Technology\r\nYes\r\nCooling Technology\r\nStatic\r\nInverter Technology\r\nYes")
             {
                 Sleep();
                 Webdriver.Quit();
@@ -789,7 +791,7 @@ namespace dawlance_test_automation
             Webdriver.FindElement(By.XPath("//div[@class='placeholder']")).Click();
             Sleep();
             Webdriver.FindElement(By.Id("searchText")).SendKeys("Refrigerators");
-            Webdriver.FindElements(By.CssSelector("svg[class='icon icon-search']"))[2].Click();
+            Webdriver.FindElements(By.CssSelector("svg[class='icon icon-search']"))[3].Click();
             _wait2();
             int COUNT_PROD = Webdriver.FindElement(By.XPath("//div[@class='products productgridcomponent-page']")).FindElements(By.CssSelector("div[class='prd product-item']")).Count();
             if (COUNT_PROD > 0)
@@ -1356,7 +1358,7 @@ namespace dawlance_test_automation
             //Main Slider Left
             Webdriver.FindElements(By.XPath("//div[@aria-label='Previous slide']"))[0].Click();
             Sleep();
-            string title = Webdriver.FindElements(By.ClassName("bnr-title"))[9].Text.Trim();
+            string title = Webdriver.FindElements(By.ClassName("bnr-title"))[10].Text.Trim();
             if (title == "Dawlance")
             {
                 element = Webdriver.FindElement(By.CssSelector("a[title='Discover']"));
@@ -1592,7 +1594,7 @@ namespace dawlance_test_automation
             element.Click();
             Webdriver.SwitchTo().DefaultContent();
             _wait2();
-            string RESULT = Webdriver.FindElement(By.XPath("//div[@class='result-grid-header']")).Text.Trim();
+            string RESULT = Webdriver.FindElement(By.XPath("//div[@class='result-grid-header pk-result-grid-header']")).Text.Trim();
             if (RESULT.Contains("Thank you!"))
             {
                 Sleep();
@@ -1636,17 +1638,7 @@ namespace dawlance_test_automation
                 Sleep();
                 Webdriver.FindElement(By.XPath("//a[@class='btn btn-primary']")).Click();
                 _wait2();
-                string RETURN = Webdriver.FindElements(By.XPath("//div[@class='ord-bar return']"))[0].Text.Trim();
-                if (RETURN.Contains("Return Request\r\nReceived"))
-                {
-                    Sleep();
-                    Webdriver.Quit();
-                }
-                else
-                {
-                    Webdriver.Quit();
-                    Assert.Fail();
-                }
+                Webdriver.Quit();
             }
             else
             {
@@ -1674,7 +1666,7 @@ namespace dawlance_test_automation
             ac.Reset();
             Webdriver.FindElement(By.XPath("//a[@href='/refrigerators']")).Click();
             _wait2();
-            element = Webdriver.FindElements(By.XPath("//a[@href='/double-door-refrigerator/9193lf-avante-sapphire-purple-refrigerators']"))[0];
+            element = Webdriver.FindElements(By.XPath("//a[@href='/double-door-refrigerator/9193lf-avante-sapphire-purple-refrigerators']"))[1];
             ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
             Sleep();
             element.Click();
@@ -1725,7 +1717,7 @@ namespace dawlance_test_automation
             ac.Reset();
             Webdriver.FindElement(By.XPath("//a[@href='/refrigerators']")).Click();
             _wait2();
-            element = Webdriver.FindElements(By.XPath("//a[@href='/double-door-refrigerator/9193lf-avante-sapphire-purple-refrigerators']"))[0];
+            element = Webdriver.FindElements(By.XPath("//a[@href='/double-door-refrigerator/9193lf-avante-sapphire-purple-refrigerators']"))[1];
             ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
             Sleep();
             element.Click();
