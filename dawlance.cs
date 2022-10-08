@@ -61,7 +61,7 @@ namespace dawlance_test_automation
             Webdriver.FindElement(By.CssSelector("a[href='/login']")).Click();
             _wait2();
             Webdriver.FindElement(By.Id("j_username")).SendKeys("grundigtest@outlook.com");
-            Webdriver.FindElement(By.Id("j_password")).SendKeys("12345Furkan");
+            Webdriver.FindElement(By.Id("j_password")).SendKeys("12345Grundig");
             element = Webdriver.FindElement(By.Id("g-recaptcha-btn-login"));
             ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
             element.Click();
@@ -443,9 +443,64 @@ namespace dawlance_test_automation
 
 
 
+        [TestMethod]
+        public void User_10_ForgotPassword()
+        {
+            try
+            {
+                _Start();
+                _wait2();
+                WebDriverWait wait = new WebDriverWait(Webdriver, TimeSpan.FromSeconds(60));
+                Webdriver.FindElement(By.XPath("//a[@title='Sign In']")).Click();
+                _wait2();
+                element = Webdriver.FindElement(By.XPath("//a[@href='/password/forgot-password']"));
+                ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+                Sleep();
+                element.Click();
+                _wait2();
+                element = Webdriver.FindElement(By.Id("email"));
+                ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+                Sleep();
+                element.SendKeys("grundigtest@outlook.com");
+                Webdriver.FindElement(By.Id("g-recaptcha-btn-forgot")).Click();
+                ((IJavaScriptExecutor)Webdriver).ExecuteScript("window.open();");
+                Webdriver.SwitchTo().Window(Webdriver.WindowHandles.Last());
+                Webdriver.Navigate().GoToUrl("https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=13&ct=1652774846&rver=7.0.6737.0&wp=MBI_SSL&wreply=https%3a%2f%2foutlook.live.com%2fowa%2f%3fnlp%3d1%26RpsCsrfState%3d1701857e-6bf6-96f1-99dd-09c8c0527bfb&id=292841&aadredir=1&whr=outlook.com&CBCXT=out&lw=1&fl=dob%2cflname%2cwld&cobrandid=90015");
+                wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector("input[type='email']"))).SendKeys("grundigtest@outlook.com");
+                wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("idSIButton9"))).Click();
+                wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector("input[type='password']"))).SendKeys("1234furkan");
+                wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("idSIButton9"))).Click();
+                wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("idBtn_Back"))).Click();
+                Thread.Sleep(45000);
+                wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("Pivot26-Tab1"))).Click();
+                wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector("div[class='ZtMcN']")));
+                Webdriver.FindElements(By.CssSelector("div[class='ZtMcN']"))[0].Click();
+                wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//a[@rel='noopener noreferrer']")));
+                element = Webdriver.FindElements(By.XPath("//a[@rel='noopener noreferrer']"))[0];
+                ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+                Sleep();
+                element.Click();
+                Webdriver.SwitchTo().Window(Webdriver.WindowHandles.Last());
+                wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("password"))).SendKeys("12345Grundig");
+                wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("checkPassword"))).SendKeys("12345Grundig");
+                wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector("button[title='Update My Password']"))).Click();
+                Sleep();
+                Webdriver.Quit();
+            }
+            catch (Exception)
+            {
+                Screenshot ss = ((ITakesScreenshot)Webdriver).GetScreenshot();
+                ss.SaveAsFile("C:\\Users\\gundu\\Desktop\\s2_automations\\Dawlance_SS\\User_10_ForgotPassword.png",
+                ScreenshotImageFormat.Png);
+                Webdriver.Quit();
+                Assert.Fail();
+            }
+        }
+
+
 
         [TestMethod]
-        public void User_10_Wishlist()
+        public void User_11_Wishlist()
         {
             User_01_Login();
             Sleep();
@@ -765,7 +820,7 @@ namespace dawlance_test_automation
             element = Webdriver.FindElement(By.XPath("//div[@class='pdp-technical-features-list']"));
             ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
             string SPECIFICATION = element.Text.Trim();
-            if (SPECIFICATION == "Product Highlights\r\nCooling Technology\r\nStatic\r\nInverter Technology\r\nYes\r\nNature Lock Technology\r\nNO\r\nVitamin Fresh Technology\r\nYes\r\nGeneral Details\r\nVoltage (V)\r\n230\r\nClimate Class\r\nT\r\nEnergy Class\r\nA++\r\nFreezer Position\r\nTop\r\nRefrigerant\r\nR600a\r\nInterior\r\nType of Shelf\r\nGlass-All standard\r\nPower Cool Fan\r\nYes\r\nFreezer Light\r\nNO\r\nIce Tray\r\nIcebox (12 pcs)\r\nRefrigerator Light\r\nLED on Left Wall\r\nNumber of Crisper\r\n1\r\nEgg Tray\r\n2\r\nFreezer Door Pockets\r\n2\r\nTotal Shelves\r\n5\r\nRefrigerator Door Pockets\r\n6\r\nExterior\r\nProduct Color\r\nSapphire Purple\r\nDoor Lock\r\nNO\r\nExternal Handle\r\nNO\r\nTouch Display\r\nYes\r\nType of Handle\r\nIntegrated Handle on side\r\nHandle Material\r\nPlastic\r\nProduct Dimensions\r\nWidth (cm)\r\n68\r\nDepth (cm)\r\n64.5\r\nHeight (cm)\r\n173")
+            if (SPECIFICATION == "Product Highlights\r\nCooling Technology\r\nStatic\r\nInverter Technology\r\nYes\r\nVitamin Fresh Technology\r\nYes\r\nGeneral Details\r\nVoltage (V)\r\n230\r\nClimate Class\r\nT\r\nEnergy Class\r\nA++\r\nFreezer Position\r\nTop\r\nRefrigerant\r\nR600a\r\nInterior\r\nType of Shelf\r\nGlass-All standard\r\nPower Cool Fan\r\nYes\r\nIce Tray\r\nIcebox (12 pcs)\r\nRefrigerator Light\r\nLED on Left Wall\r\nNumber of Crisper\r\n1\r\nEgg Tray\r\n2\r\nFreezer Door Pockets\r\n2\r\nTotal Shelves\r\n5\r\nRefrigerator Door Pockets\r\n6\r\nExterior\r\nProduct Color\r\nSapphire Purple\r\nTouch Display\r\nYes\r\nType of Handle\r\nIntegrated Handle on side\r\nHandle Material\r\nPlastic\r\nProduct Dimensions\r\nWidth (cm)\r\n68\r\nDepth (cm)\r\n64.5\r\nHeight (cm)\r\n173")
             {
                 Sleep();
                 Webdriver.Quit();
