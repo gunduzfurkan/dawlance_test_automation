@@ -473,8 +473,8 @@ namespace dawlance_test_automation
                 wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("idBtn_Back"))).Click();
                 Thread.Sleep(45000);
                 wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("Pivot26-Tab1"))).Click();
-                wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector("div[class='ZtMcN']")));
-                Webdriver.FindElements(By.CssSelector("div[class='ZtMcN']"))[0].Click();
+                wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector("div[class='hcptT']")));
+                Webdriver.FindElements(By.CssSelector("div[class='hcptT']"))[0].Click();
                 wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//a[@rel='noopener noreferrer']")));
                 element = Webdriver.FindElements(By.XPath("//a[@rel='noopener noreferrer']"))[0];
                 ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
