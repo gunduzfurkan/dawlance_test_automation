@@ -107,7 +107,7 @@ namespace dawlance_test_automation
             Webdriver.FindElement(By.CssSelector("button[title='Add New Address']")).Click();
             Sleep();
             Webdriver.FindElement(By.Id("fullName")).SendKeys("Deneme Deneme");
-            Webdriver.FindElement(By.Id("phone")).SendKeys("000000000");
+            Webdriver.FindElement(By.Id("phone")).SendKeys("1234567890");
             Webdriver.FindElement(By.Id("cityCode")).Click();
             Webdriver.FindElement(By.CssSelector("option[value='921']")).Click();
             Webdriver.FindElement(By.Id("townCode")).Click();
@@ -259,9 +259,9 @@ namespace dawlance_test_automation
         public void User_06_AddCompanyAddress()
         {
             User_01_Login();
-            Sleep();
             _wait2();
-            Webdriver.FindElement(By.XPath("//a[@data-selector='user-name']")).Click();
+            WebDriverWait wait = new WebDriverWait(Webdriver, TimeSpan.FromSeconds(60));
+            wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector("a[href='/my-account/my-profile']"))).Click();
             _wait2();
             Webdriver.FindElement(By.CssSelector("button[title='Add New Address']")).Click();
             Sleep();
@@ -269,7 +269,7 @@ namespace dawlance_test_automation
             Sleep();
             Webdriver.FindElement(By.Id("company")).SendKeys("test company");
             Webdriver.FindElement(By.Id("taxNumber")).SendKeys("4664540663");
-            Webdriver.FindElement(By.Id("phone")).SendKeys("000000000");
+            Webdriver.FindElement(By.Id("phone")).SendKeys("00000000000");
             Webdriver.FindElement(By.Id("cityCode")).Click();
             Webdriver.FindElement(By.CssSelector("option[value='921']")).Click();
             Webdriver.FindElement(By.Id("townCode")).Click();
@@ -290,9 +290,9 @@ namespace dawlance_test_automation
         public void User_07_UpdateCompanyAddress()
         {
             User_01_Login();
-            Sleep();
             _wait2();
-            Webdriver.FindElement(By.XPath("//a[@data-selector='user-name']")).Click();
+            WebDriverWait wait = new WebDriverWait(Webdriver, TimeSpan.FromSeconds(60));
+            wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector("a[href='/my-account/my-profile']"))).Click();
             _wait2();
             int _count = Webdriver.FindElement(By.CssSelector("div[class='usr-addresses']")).FindElements(By.CssSelector("div[class='item']")).Count();
             List<string> _adressList = new List<string>();
@@ -319,9 +319,9 @@ namespace dawlance_test_automation
         public void User_08_DeleteCompanyAddress()
         {
             User_01_Login();
-            Sleep();
             _wait2();
-            Webdriver.FindElement(By.XPath("//a[@data-selector='user-name']")).Click();
+            WebDriverWait wait = new WebDriverWait(Webdriver, TimeSpan.FromSeconds(60));
+            wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector("a[href='/my-account/my-profile']"))).Click();
             _wait2();
             int _count = Webdriver.FindElement(By.CssSelector("div[class='usr-addresses']")).FindElements(By.CssSelector("div[class='item']")).Count();
             List<string> _adressList = new List<string>();
@@ -432,7 +432,10 @@ namespace dawlance_test_automation
             _wait2();
             Webdriver.FindElement(By.XPath("//a[@data-selector='user-name']")).Click();
             _wait2();
-            Webdriver.FindElement(By.CssSelector("a[href='/my-account/update-password']")).Click();
+            element = Webdriver.FindElement(By.CssSelector("a[href='/my-account/update-password']"));
+            ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+            Thread.Sleep(1000);
+            element.Click();
             _wait2();
             Webdriver.FindElement(By.Id("newPassword")).SendKeys("12345Furkan");
             Webdriver.FindElement(By.Id("newPasswordVerification")).SendKeys("12345Furkan");
@@ -472,7 +475,7 @@ namespace dawlance_test_automation
                 wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("idSIButton9"))).Click();
                 wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("idBtn_Back"))).Click();
                 Thread.Sleep(45000);
-                wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("Pivot26-Tab1"))).Click();
+                wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("Pivot84-Tab1"))).Click();
                 wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector("div[class='hcptT']")));
                 Webdriver.FindElements(By.CssSelector("div[class='hcptT']"))[0].Click();
                 wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//a[@rel='noopener noreferrer']")));
@@ -503,9 +506,9 @@ namespace dawlance_test_automation
         public void User_11_Wishlist()
         {
             User_01_Login();
-            Sleep();
             _wait2();
-            Webdriver.FindElement(By.XPath("//a[@data-selector='user-name']")).Click();
+            WebDriverWait wait = new WebDriverWait(Webdriver, TimeSpan.FromSeconds(60));
+            wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector("a[href='/my-account/my-profile']"))).Click();
             _wait2();
             Webdriver.FindElement(By.XPath("//a[@href='/my-account/favourites ']")).Click();
             _wait2();
@@ -533,7 +536,6 @@ namespace dawlance_test_automation
                     _wait2();
                 }
             }
-            WebDriverWait wait = new WebDriverWait(Webdriver, TimeSpan.FromSeconds(60));
             Webdriver.FindElement(By.CssSelector("button[aria-label='menu']")).Click();
             Sleep();
             Actions ac = new Actions(Webdriver);
@@ -543,7 +545,7 @@ namespace dawlance_test_automation
             Webdriver.FindElement(By.XPath("//a[@href='/refrigerators']")).Click();
             _wait2();
             //PLP Wishlist
-            element = Webdriver.FindElement(By.XPath("//button[@data-title='9193LF Avante+ Sapphire Purple']"));
+            element = Webdriver.FindElement(By.XPath("//button[@data-title='91999 Avante+ Ruby Red']"));
             ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
             element.Click();
             Sleep();
@@ -551,11 +553,11 @@ namespace dawlance_test_automation
             Sleep();
             Webdriver.FindElements(By.XPath("//button[@class='btn-close']"))[3].Click();
             //PDP Wishlist
-            element = Webdriver.FindElements(By.XPath("//a[@href='/double-door-refrigerator/91999-avante-ruby-red-refrigerators']"))[0];
+            element = Webdriver.FindElements(By.XPath("//a[@href='/double-door-refrigerator/9173wb-avante-sapphire-purple-refrigerators']"))[0];
             ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
             element.Click();
             _wait2();
-            Webdriver.FindElements(By.XPath("//button[@data-title='91999 Avante+ Ruby Red']"))[1].Click();
+            Webdriver.FindElements(By.XPath("//button[@data-title='9173WB Avante+ Sapphire Purple']"))[1].Click();
             Sleep();
             Webdriver.FindElement(By.XPath("//button[@class='menu-btn-star add-my-list']")).Click();
             Sleep();
@@ -569,7 +571,7 @@ namespace dawlance_test_automation
             ac.Reset();
             Webdriver.FindElement(By.XPath("//a[@href='/refrigerators']")).Click();
             _wait2();
-            element = Webdriver.FindElements(By.XPath("//a[@href='/double-door-refrigerator/9173wb-avante-sapphire-purple-refrigerators']"))[0];
+            element = Webdriver.FindElements(By.XPath("//a[@href='/double-door-refrigerator/91999-avante-sapphire-purple-refrigerators']"))[0];
             ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
             element.Click();
             _wait2();
@@ -586,14 +588,25 @@ namespace dawlance_test_automation
             string FIRST_PROD = Webdriver.FindElements(By.XPath("//div[@class='fav-name']"))[0].Text.Trim();
             string SECOND_PROD = Webdriver.FindElements(By.XPath("//div[@class='fav-name']"))[1].Text.Trim();
             string THIRD_PROD = Webdriver.FindElements(By.XPath("//div[@class='fav-name']"))[2].Text.Trim();
-            if (FIRST_PROD == "9173WB Avante+ Sapphire Purple")
+            if (FIRST_PROD == "91999 Avante+ Sapphire Purple")
             {
-                if (SECOND_PROD == "91999 Avante+ Ruby Red")
+                if (SECOND_PROD == "9173WB Avante+ Sapphire Purple")
                 {
-                    if (THIRD_PROD == "9193LF Avante+ Sapphire Purple")
+                    if (THIRD_PROD == "91999 Avante+ Ruby Red")
                     {
                         Sleep();
-                        Webdriver.Quit();
+                        Webdriver.FindElement(By.XPath("//button[@class='btn btn-outline-dark remove-my-all-list']")).Click();
+                        _wait2();
+                        string EMPTY_FAVORITE = Webdriver.FindElement(By.XPath("//div[@class='t']")).Text.Trim();
+                        if (EMPTY_FAVORITE == "Your wishlist is empty")
+                        {
+                            Webdriver.Quit();
+                        }
+                        else
+                        {
+                            Webdriver.Quit();
+                            Assert.Fail();
+                        }
                     }
                     else
                     {
@@ -638,11 +651,11 @@ namespace dawlance_test_automation
             string FIRST_PROD = Webdriver.FindElements(By.XPath("//div[@class='prd-features']"))[0].Text.Trim();
             string SECOND_PROD = Webdriver.FindElements(By.XPath("//div[@class='prd-features']"))[1].Text.Trim();
             string THIRD_PROD = Webdriver.FindElements(By.XPath("//div[@class='prd-features']"))[2].Text.Trim();
-            if (FIRST_PROD == "Vitamin Fresh Technology : Yes\r\nInverter Technology : Yes\r\nCooling Technology : Static\r\nTotal Gross Volume (cu.ft) (Requested By Customer) : 13,52")
+            if (FIRST_PROD == "Vitamin Fresh Technology : Yes\r\nInverter Technology : Yes\r\nCooling Technology : Static\r\nTotal Gross Volume (cu.ft) (Requested By Customer) : 16.45")
             {
-                if (SECOND_PROD == "Vitamin Fresh Technology : Yes\r\nInverter Technology : Yes\r\nCooling Technology : Static\r\nTotal Gross Volume (cu.ft) (Requested By Customer) : 16.45")
+                if (SECOND_PROD == "Vitamin Fresh Technology : Yes\r\nInverter Technology : Yes\r\nCooling Technology : Static\r\nTotal Gross Volume (cu.ft) (Requested By Customer) : 9,49")
                 {
-                    if (THIRD_PROD == "Vitamin Fresh Technology : Yes\r\nInverter Technology : Yes\r\nCooling Technology : Static\r\nTotal Gross Volume (cu.ft) (Requested By Customer) : 9,49")
+                    if (THIRD_PROD == "Vitamin Fresh Technology : Yes\r\nInverter Technology : Yes\r\nCooling Technology : Static\r\nTotal Gross Volume (cu.ft) (Requested By Customer) : 13,52")
                     {
                         Sleep();
                         Webdriver.Quit();
@@ -686,7 +699,7 @@ namespace dawlance_test_automation
             ac.Reset();
             Webdriver.FindElement(By.XPath("//a[@href='/refrigerators']")).Click();
             _wait2();
-            element = Webdriver.FindElements(By.XPath("//a[@href='/double-door-refrigerator/9193lf-avante-sapphire-purple-refrigerators']"))[0];
+            element = Webdriver.FindElements(By.XPath("//a[@href='/double-door-refrigerator/91999-avante-ruby-red-refrigerators']"))[0];
             ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
             Sleep();
             element.Click();
@@ -702,7 +715,6 @@ namespace dawlance_test_automation
             Sleep();
             Webdriver.FindElement(By.Id("townCode")).FindElement(By.XPath("//option[@value='922.2']")).Click();
             Sleep();
-            Webdriver.FindElement(By.Id("neighborhood")).FindElement(By.XPath("//option[@value='150176']")).Click();
             element.Click();
             Sleep();
             string RESULT = Webdriver.FindElement(By.XPath("//div[@class='stf-result']")).Text.Trim();
@@ -733,7 +745,7 @@ namespace dawlance_test_automation
             ac.Reset();
             Webdriver.FindElement(By.XPath("//a[@href='/refrigerators']")).Click();
             _wait2();
-            element = Webdriver.FindElements(By.XPath("//a[@href='/double-door-refrigerator/9193lf-avante-sapphire-purple-refrigerators']"))[0];
+            element = Webdriver.FindElements(By.XPath("//a[@href='/double-door-refrigerator/91999-avante-ruby-red-refrigerators']"))[0];
             ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
             Sleep();
             element.Click();
@@ -768,7 +780,7 @@ namespace dawlance_test_automation
             ac.Reset();
             Webdriver.FindElement(By.XPath("//a[@href='/refrigerators']")).Click();
             _wait2();
-            element = Webdriver.FindElements(By.XPath("//a[@href='/double-door-refrigerator/9193lf-avante-sapphire-purple-refrigerators']"))[0];
+            element = Webdriver.FindElements(By.XPath("//a[@href='/double-door-refrigerator/91999-avante-ruby-red-refrigerators']"))[0];
             ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
             Sleep();
             element.Click();
@@ -808,19 +820,19 @@ namespace dawlance_test_automation
             ac.Reset();
             Webdriver.FindElement(By.XPath("//a[@href='/refrigerators']")).Click();
             _wait2();
-            element = Webdriver.FindElements(By.XPath("//a[@href='/double-door-refrigerator/9193lf-avante-sapphire-purple-refrigerators']"))[0];
+            element = Webdriver.FindElements(By.XPath("//a[@href='/double-door-refrigerator/91999-avante-ruby-red-refrigerators']"))[1];
             ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
             Sleep();
             element.Click();
             _wait2();
-            element = Webdriver.FindElement(By.XPath("//li[@class='pdp-technical-features']"));
+            element = Webdriver.FindElement(By.Id("pdp-technical"));
             ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
             Sleep();
             element.Click();
             element = Webdriver.FindElement(By.XPath("//div[@class='pdp-technical-features-list']"));
             ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
             string SPECIFICATION = element.Text.Trim();
-            if (SPECIFICATION == "Product Highlights\r\nCooling Technology\r\nStatic\r\nInverter Technology\r\nYes\r\nVitamin Fresh Technology\r\nYes\r\nGeneral Details\r\nVoltage (V)\r\n230\r\nClimate Class\r\nT\r\nEnergy Class\r\nA++\r\nFreezer Position\r\nTop\r\nRefrigerant\r\nR600a\r\nInterior\r\nType of Shelf\r\nGlass-All standard\r\nPower Cool Fan\r\nYes\r\nIce Tray\r\nIcebox (12 pcs)\r\nRefrigerator Light\r\nLED on Left Wall\r\nNumber of Crisper\r\n1\r\nEgg Tray\r\n2\r\nFreezer Door Pockets\r\n2\r\nTotal Shelves\r\n5\r\nRefrigerator Door Pockets\r\n6\r\nExterior\r\nProduct Color\r\nSapphire Purple\r\nTouch Display\r\nYes\r\nType of Handle\r\nIntegrated Handle on side\r\nHandle Material\r\nPlastic\r\nProduct Dimensions\r\nWidth (cm)\r\n68\r\nDepth (cm)\r\n64.5\r\nHeight (cm)\r\n173")
+            if (SPECIFICATION == "Product Highlights\r\nCooling Technology\r\nStatic\r\nInverter Technology\r\nYes\r\nNature Lock Technology\r\nYes\r\nVitamin Fresh Technology\r\nYes\r\nGeneral Details\r\nVoltage (V)\r\n230\r\nClimate Class\r\nT\r\nEnergy Class\r\nA++\r\nFreezer Position\r\nTop\r\nRefrigerant\r\nR600a\r\nInterior\r\nType of Shelf\r\nGlass-All standard\r\nPower Cool Fan\r\nYes\r\nIce Tray\r\nIcebox (12 pcs)\r\nRefrigerator Light\r\nLED on Side Walls\r\nNumber of Crisper\r\n2\r\nEgg Tray\r\n2\r\nFreezer Door Pockets\r\n2\r\nTotal Shelves\r\n5\r\nRefrigerator Door Pockets\r\n5\r\nExterior\r\nProduct Color\r\nSapphire Purple\r\nTouch Display\r\nYes\r\nType of Handle\r\nIntegrated Handle on side\r\nHandle Material\r\nPlastic\r\nProduct Dimensions\r\nWidth (cm)\r\n77.6\r\nDepth (cm)\r\n65.2\r\nHeight (cm)\r\n177")
             {
                 Sleep();
                 Webdriver.Quit();
@@ -889,8 +901,9 @@ namespace dawlance_test_automation
             int COUNT_ITEM = Webdriver.FindElement(By.CssSelector("div[class='tab-content']")).FindElements(By.CssSelector("div[data-category='all']")).Count();
             if (COUNT_ITEM > 0)
             {
-                element = Webdriver.FindElements(By.CssSelector("a[title='Shop Now']"))[0];
+                element = Webdriver.FindElement(By.XPath("//a[@title='Shop Now']")); 
                 ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
+                Sleep();
                 element.Click();
                 _wait2();
                 Webdriver.Quit();
@@ -908,11 +921,7 @@ namespace dawlance_test_automation
             _Start();
             Webdriver.FindElement(By.CssSelector("a[href='/store-finder']")).Click();
             _wait2();
-            Webdriver.FindElement(By.Id("cityCode")).FindElement(By.CssSelector("option[value='926']")).Click();
-            Sleep();
-            Webdriver.FindElement(By.Id("townCode")).FindElement(By.CssSelector("option[value='926.18']")).Click();
-            Sleep();
-            Webdriver.FindElement(By.Id("neighborhood")).FindElement(By.CssSelector("option[value='152593']")).Click();
+            Webdriver.FindElement(By.Id("cityCode")).FindElement(By.CssSelector("option[value='cityAll']")).Click();
             Sleep();
             Webdriver.FindElement(By.CssSelector("a[title='Search Store']")).Click();
             _wait2();
@@ -1002,13 +1011,13 @@ namespace dawlance_test_automation
             Actions ac = new Actions(Webdriver);
             element = Webdriver.FindElement(By.CssSelector("a[href='/refrigerators-and-freezers']"));
             ac.MoveToElement(element).Perform();
-            int COUNT = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("li")).Count();
+            int COUNT = Webdriver.FindElement(By.CssSelector("li[class='lv1-li selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("li")).Count();
             ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
             ac.Reset();
             List<string> _titles = new List<string>();
             for (int i = 0; i < COUNT; i++)
             {
-                string title = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("a"))[i].GetAttribute("title");
+                string title = Webdriver.FindElement(By.CssSelector("li[class='lv1-li selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("a"))[i].GetAttribute("title");
                 _titles.Add(title);
                 element = Webdriver.FindElement(By.CssSelector("a[title='" + _titles[i] + "']"));
                 ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
@@ -1053,13 +1062,13 @@ namespace dawlance_test_automation
             Actions ac = new Actions(Webdriver);
             element = Webdriver.FindElement(By.CssSelector("a[href='/washing-machines']"));
             ac.MoveToElement(element).Perform();
-            int COUNT = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("li")).Count();
+            int COUNT = Webdriver.FindElement(By.CssSelector("li[class='lv1-li selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("li")).Count();
             ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
             ac.Reset();
             List<string> _titles = new List<string>();
             for (int i = 0; i < COUNT; i++)
             {
-                string title = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("a"))[i].GetAttribute("title");
+                string title = Webdriver.FindElement(By.CssSelector("li[class='lv1-li selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("a"))[i].GetAttribute("title");
                 _titles.Add(title);
                 element = Webdriver.FindElement(By.CssSelector("a[title='" + _titles[i] + "']"));
                 ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
@@ -1104,13 +1113,13 @@ namespace dawlance_test_automation
             Actions ac = new Actions(Webdriver);
             element = Webdriver.FindElement(By.CssSelector("a[href='/cooking-appliances']"));
             ac.MoveToElement(element).Perform();
-            int COUNT = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("li")).Count();
+            int COUNT = Webdriver.FindElement(By.CssSelector("li[class='lv1-li selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("li")).Count();
             ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
             ac.Reset();
             List<string> _titles = new List<string>();
             for (int i = 0; i < COUNT; i++)
             {
-                string title = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("a"))[i].GetAttribute("title");
+                string title = Webdriver.FindElement(By.CssSelector("li[class='lv1-li selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("a"))[i].GetAttribute("title");
                 _titles.Add(title);
                 element = Webdriver.FindElement(By.CssSelector("a[title='" + _titles[i] + "']"));
                 ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
@@ -1155,13 +1164,13 @@ namespace dawlance_test_automation
             Actions ac = new Actions(Webdriver);
             element = Webdriver.FindElement(By.CssSelector("a[href='/dishwashers']"));
             ac.MoveToElement(element).Perform();
-            int COUNT = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("li")).Count();
+            int COUNT = Webdriver.FindElement(By.CssSelector("li[class='lv1-li selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("li")).Count();
             ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
             ac.Reset();
             List<string> _titles = new List<string>();
             for (int i = 0; i < COUNT; i++)
             {
-                string title = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("a"))[i].GetAttribute("title");
+                string title = Webdriver.FindElement(By.CssSelector("li[class='lv1-li selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("a"))[i].GetAttribute("title");
                 _titles.Add(title);
                 element = Webdriver.FindElement(By.CssSelector("a[title='" + _titles[i] + "']"));
                 ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
@@ -1206,13 +1215,13 @@ namespace dawlance_test_automation
             Actions ac = new Actions(Webdriver);
             element = Webdriver.FindElement(By.CssSelector("a[href='/air-conditioners']"));
             ac.MoveToElement(element).Perform();
-            int COUNT = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("li")).Count();
+            int COUNT = Webdriver.FindElement(By.CssSelector("li[class='lv1-li selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("li")).Count();
             ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
             ac.Reset();
             List<string> _titles = new List<string>();
             for (int i = 0; i < COUNT; i++)
             {
-                string title = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("a"))[i].GetAttribute("title");
+                string title = Webdriver.FindElement(By.CssSelector("li[class='lv1-li selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("a"))[i].GetAttribute("title");
                 _titles.Add(title);
                 element = Webdriver.FindElement(By.CssSelector("a[title='" + _titles[i] + "']"));
                 ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
@@ -1257,13 +1266,13 @@ namespace dawlance_test_automation
             Actions ac = new Actions(Webdriver);
             element = Webdriver.FindElement(By.CssSelector("a[href='/water-dispensers']"));
             ac.MoveToElement(element).Perform();
-            int COUNT = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("li")).Count();
+            int COUNT = Webdriver.FindElement(By.CssSelector("li[class='lv1-li selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("li")).Count();
             ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
             ac.Reset();
             List<string> _titles = new List<string>();
             for (int i = 0; i < COUNT; i++)
             {
-                string title = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("a"))[i].GetAttribute("title");
+                string title = Webdriver.FindElement(By.CssSelector("li[class='lv1-li selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("a"))[i].GetAttribute("title");
                 _titles.Add(title);
                 element = Webdriver.FindElement(By.CssSelector("a[title='" + _titles[i] + "']"));
                 ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
@@ -1308,13 +1317,13 @@ namespace dawlance_test_automation
             Actions ac = new Actions(Webdriver);
             element = Webdriver.FindElement(By.CssSelector("a[href='/small-domestic-appliances']"));
             ac.MoveToElement(element).Perform();
-            int COUNT = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("li")).Count();
+            int COUNT = Webdriver.FindElement(By.CssSelector("li[class='lv1-li selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("li")).Count();
             ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
             ac.Reset();
             List<string> _titles = new List<string>();
             for (int i = 0; i < COUNT; i++)
             {
-                string title = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("a"))[i].GetAttribute("title");
+                string title = Webdriver.FindElement(By.CssSelector("li[class='lv1-li selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("a"))[i].GetAttribute("title");
                 _titles.Add(title);
                 element = Webdriver.FindElement(By.CssSelector("a[title='" + _titles[i] + "']"));
                 ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
@@ -1360,13 +1369,13 @@ namespace dawlance_test_automation
             Actions ac = new Actions(Webdriver);
             element = Webdriver.FindElement(By.CssSelector("a[href='/personal-care']"));
             ac.MoveToElement(element).Perform();
-            int COUNT = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("li")).Count();
+            int COUNT = Webdriver.FindElement(By.CssSelector("li[class='lv1-li selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("li")).Count();
             ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
             ac.Reset();
             List<string> _titles = new List<string>();
             for (int i = 0; i < COUNT - 4; i++)
             {
-                string title = Webdriver.FindElement(By.CssSelector("li[class='selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("a"))[i].GetAttribute("title");
+                string title = Webdriver.FindElement(By.CssSelector("li[class='lv1-li selected']")).FindElement(By.CssSelector("div[class='sub']")).FindElement(By.CssSelector("ul[class='ul-clear lv-2']")).FindElements(By.TagName("a"))[i].GetAttribute("title");
                 _titles.Add(title);
                 element = Webdriver.FindElement(By.CssSelector("a[title='" + _titles[i] + "']"));
                 ac.KeyDown(Keys.LeftControl).Click(element).KeyUp(Keys.LeftControl).Perform();
@@ -1435,14 +1444,6 @@ namespace dawlance_test_automation
         {
             _Start();
             Actions ac = new Actions(Webdriver);
-            element = Webdriver.FindElements(By.XPath("//div[@aria-label='Next slide']"))[2];
-            ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
-            Sleep();
-            Webdriver.FindElements(By.XPath("//div[@aria-label='Next slide']"))[2].Click();
-            Sleep();
-            //Main Slider Left
-            Webdriver.FindElements(By.XPath("//div[@aria-label='Previous slide']"))[2].Click();
-            Sleep();
             element = Webdriver.FindElement(By.Id("category-swiper")).FindElement(By.CssSelector("div[data-order='0']"));
             ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
             Sleep();
@@ -1610,7 +1611,7 @@ namespace dawlance_test_automation
             ac.Reset();
             Webdriver.FindElement(By.XPath("//a[@href='/refrigerators']")).Click();
             _wait2();
-            element = Webdriver.FindElements(By.XPath("//a[@href='/double-door-refrigerator/9193lf-avante-sapphire-purple-refrigerators']"))[0];
+            element = Webdriver.FindElements(By.XPath("//a[@href='/double-door-refrigerator/91999-avante-ruby-red-refrigerators']"))[0];
             ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
             Sleep();
             element.Click();
@@ -1721,7 +1722,7 @@ namespace dawlance_test_automation
             ac.Reset();
             Webdriver.FindElement(By.XPath("//a[@href='/refrigerators']")).Click();
             _wait2();
-            element = Webdriver.FindElements(By.XPath("//a[@href='/double-door-refrigerator/9193lf-avante-sapphire-purple-refrigerators']"))[1];
+            element = Webdriver.FindElements(By.XPath("//a[@href='/double-door-refrigerator/91999-avante-ruby-red-refrigerators']"))[1];
             ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
             Sleep();
             element.Click();
@@ -1772,7 +1773,7 @@ namespace dawlance_test_automation
             ac.Reset();
             Webdriver.FindElement(By.XPath("//a[@href='/refrigerators']")).Click();
             _wait2();
-            element = Webdriver.FindElements(By.XPath("//a[@href='/double-door-refrigerator/9193lf-avante-sapphire-purple-refrigerators']"))[1];
+            element = Webdriver.FindElements(By.XPath("//a[@href='/double-door-refrigerator/91999-avante-ruby-red-refrigerators']"))[1];
             ((IJavaScriptExecutor)Webdriver).ExecuteScript(scrollElementIntoMiddle, element);
             Sleep();
             element.Click();
@@ -1800,8 +1801,10 @@ namespace dawlance_test_automation
 
         public void Basket_Control()
         {
-            _wait2();
-            Webdriver.FindElement(By.XPath("//a[@class='btn-cart']")).Click();
+            _wait2(); 
+            WebDriverWait wait = new WebDriverWait(Webdriver, TimeSpan.FromSeconds(60)); 
+            wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//a[@class='btn-cart']"))).Click();
+            //Webdriver.FindElement(By.XPath("//a[@class='btn-cart']")).Click();
             try
             {
                 //Sepet Doluysa
