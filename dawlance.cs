@@ -475,7 +475,7 @@ namespace dawlance_test_automation
                 wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("idSIButton9"))).Click();
                 wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("idBtn_Back"))).Click();
                 Thread.Sleep(45000);
-                wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("Pivot84-Tab1"))).Click();
+                wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("Pivot81-Tab1"))).Click();
                 wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector("div[class='hcptT']")));
                 Webdriver.FindElements(By.CssSelector("div[class='hcptT']"))[0].Click();
                 wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//a[@rel='noopener noreferrer']")));
